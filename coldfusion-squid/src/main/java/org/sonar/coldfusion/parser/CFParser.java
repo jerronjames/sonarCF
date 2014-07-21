@@ -26,7 +26,6 @@ import org.sonar.coldfusion.CFConfiguration;
 import com.sonar.sslr.impl.Parser;
 import org.sonar.coldfusion.lexer.CFLexer;
 import org.sonar.sslr.parser.LexerlessGrammar;
-//import com.sonar.sslr.api.Grammar;
 import org.sonar.sslr.parser.ParserAdapter;
 
 

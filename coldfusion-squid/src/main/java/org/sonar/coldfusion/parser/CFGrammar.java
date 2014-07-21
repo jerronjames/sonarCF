@@ -34,15 +34,8 @@ import static org.sonar.coldfusion.api.CFPunctuator.*;
 import static org.sonar.coldfusion.api.CFTokenType.IDENTIFIER;
 import static org.sonar.coldfusion.api.CFTokenType.NUMERIC_LITERAL;
 import static org.sonar.coldfusion.api.CFTokenType.REGULAR_EXPRESSION_LITERAL;
-
-// ColdFusion Specific
 import static org.sonar.coldfusion.api.CFKeyword.*;
 
-/**
- * Grammar for CF.
- * Based on 
- * edition 5.1 (June 2011).
- */
 public enum CFGrammar implements GrammarRuleKey {
 
   /**
@@ -284,22 +277,6 @@ public enum CFGrammar implements GrammarRuleKey {
         b.sequence(PARAMETER_TYPE, VARIABLE),
         VARIABLE),
       b.optional(b.sequence(EQUALSOP, IMPLIES_EXPRESSION))));
-
-
-
-
-   // b.rule(PARAMETER).is(b.sequence(b.optional(REQUIRED, PARAMETER_TYPE), VARIABLE, b.optional(b.sequence(EQUALSOP, IMPLIES_EXPRESSION))));
-
-
-
-
-
-
-
-
-
-
-
     b.rule(PARAMETER_TYPE).is(TYPE_SPEC);
     b.rule(COMPONENT_ATTRIBUTE).is(VARIABLE, b.optional(COLON, VARIABLE), EQUALSOP, b.optional(IMPLIES_EXPRESSION));
     b.rule(FUNCTION_ATTRIBUTE).is(b.nextNot(LPARENTHESIS), IMPLIES_EXPRESSION);

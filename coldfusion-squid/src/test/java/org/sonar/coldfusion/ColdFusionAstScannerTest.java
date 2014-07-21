@@ -21,7 +21,7 @@ package org.sonar.coldfusion;
 
 import com.google.common.base.Charsets;
 import com.google.common.collect.ImmutableList;
-import com.sonar.sslr.api.Grammar;
+import org.sonar.sslr.parser.LexerlessGrammar;
 import org.junit.Test;
 import org.sonar.coldfusion.api.CFMetric;
 import org.sonar.squidbridge.AstScanner;

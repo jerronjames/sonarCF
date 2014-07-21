@@ -27,24 +27,20 @@ import org.sonar.coldfusion.parser.CFParser;
 
 import com.google.common.base.Charsets;
 import com.google.common.collect.ImmutableList;
-import com.sonar.sslr.api.AstNode;
-import com.sonar.sslr.impl.Parser;
-import com.sonar.sslr.squid.AstScanner;
-import com.sonar.sslr.squid.SourceCodeBuilderCallback;
-import com.sonar.sslr.squid.SourceCodeBuilderVisitor;
-import com.sonar.sslr.squid.SquidAstVisitor;
-import com.sonar.sslr.squid.SquidAstVisitorContextImpl;
-import com.sonar.sslr.squid.metrics.CommentsVisitor;
-import com.sonar.sslr.squid.metrics.CounterVisitor;
-import com.sonar.sslr.squid.metrics.LinesOfCodeVisitor;
-import com.sonar.sslr.squid.metrics.LinesVisitor;
-import org.sonar.squid.api.SourceCode;
-import org.sonar.squid.api.SourceFile;
-import org.sonar.squid.api.SourceFunction;
-import org.sonar.squid.api.SourceProject;
-import org.sonar.squid.api.SourceClass;
-import org.sonar.squid.indexer.QueryByType;
+import org.sonar.squidbridge.api.SourceClass;
+import org.sonar.squidbridge.api.SourceCode;
+import org.sonar.squidbridge.api.SourceFile;
+import org.sonar.squidbridge.api.SourceFunction;
+import org.sonar.squidbridge.api.SourceProject;
 import org.sonar.sslr.parser.LexerlessGrammar;
+import com.sonar.sslr.impl.Parser;
+import org.sonar.squidbridge.CommentAnalyser;
+import org.sonar.squidbridge.SourceCodeBuilderCallback;
+import org.sonar.squidbridge.SourceCodeBuilderVisitor;
+import org.sonar.squidbridge.SquidAstVisitor;
+import org.sonar.squidbridge.SquidAstVisitorContextImpl;
+import org.sonar.squidbridge.AstScanner;
+import org.sonar.squidbridge.indexer.QueryByType;
 
 import java.io.File;
 import java.util.Collection;
@@ -104,34 +100,6 @@ public final class ColdFusionAstScanner {
     final Parser<LexerlessGrammar> parser = CFParser.create(conf);
 
     AstScanner.Builder<LexerlessGrammar> builder = AstScanner.<LexerlessGrammar>builder(context).setBaseParser(parser);
-
-    builder.withMetrics(CFMetric.values());
-
-    // Comments
-    builder.setCommentAnalyser(new CFCommentAnalyser());
-
-    // Files
-    builder.setFilesMetric(CFMetric.FILES);
-
-    // Script Blocks
-    builder.withSquidAstVisitor(new SourceCodeBuilderVisitor<LexerlessGrammar>(new SourceCodeBuilderCallback() {
-      private int seq = 0;
-
-      @Override
-      public SourceCode createSourceCode(SourceCode parentSourceCode, AstNode astNode) {
-        seq++;
-        // SourceClass class = new SourceClass("script:" + seq);
-        // class.setStartAtLine(astNode.getTokenLine());
-        return null;
-      }
-    }, CFGrammar.SCRIPT_BLOCK, CFGrammar.CFML_STATEMENT));
-
-    builder.withSquidAstVisitor(CounterVisitor.<LexerlessGrammar>builder()
-      .setMetricsDef(CFMetric.CLASSES)
-      .subscribeTo(CFGrammar.SCRIPT_BLOCK)
-      .subscribeTo(CFGrammar.CFML_STATEMENT)
-      .build());
-
 
 
     return builder.build();
