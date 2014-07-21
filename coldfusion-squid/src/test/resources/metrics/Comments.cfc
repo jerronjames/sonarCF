@@ -15,7 +15,7 @@ component hint = "test hint" {
 		//8test
 		/*9 say */
 		/* 10 test */
-		/* 11 say ---*/>
+		/* 11 say ---*/
 
 		// 12 test
 		/* 13 test */

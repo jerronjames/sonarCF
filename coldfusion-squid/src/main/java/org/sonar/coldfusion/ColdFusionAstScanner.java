@@ -24,6 +24,7 @@ import org.sonar.coldfusion.api.CFMetric;
 import org.sonar.coldfusion.metrics.ComplexityVisitor;
 import org.sonar.coldfusion.parser.CFGrammar;
 import org.sonar.coldfusion.parser.CFParser;
+import org.sonar.coldfusion.CFCommentAnalyser;
 
 import com.google.common.base.Charsets;
 import com.google.common.collect.ImmutableList;
@@ -34,19 +35,23 @@ import org.sonar.squidbridge.api.SourceFunction;
 import org.sonar.squidbridge.api.SourceProject;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import com.sonar.sslr.impl.Parser;
-import org.sonar.squidbridge.CommentAnalyser;
+import com.sonar.sslr.api.AstNode;
 import org.sonar.squidbridge.SourceCodeBuilderCallback;
 import org.sonar.squidbridge.SourceCodeBuilderVisitor;
 import org.sonar.squidbridge.SquidAstVisitor;
 import org.sonar.squidbridge.SquidAstVisitorContextImpl;
 import org.sonar.squidbridge.AstScanner;
 import org.sonar.squidbridge.indexer.QueryByType;
+import org.sonar.squidbridge.metrics.CounterVisitor;
+import org.sonar.squidbridge.metrics.CommentsVisitor;
+import org.sonar.squidbridge.metrics.LinesVisitor;
+
 
 import java.io.File;
 import java.util.Collection;
 
 public final class ColdFusionAstScanner {
-  
+
   private ColdFusionAstScanner() {
   }
 
@@ -73,6 +78,79 @@ public final class ColdFusionAstScanner {
 
     AstScanner.Builder<LexerlessGrammar> builder = AstScanner.<LexerlessGrammar>builder(context).setBaseParser(parser);
 
+    builder.withMetrics(CFMetric.values());               // get all Metrics available
+    builder.setCommentAnalyser(new CFCommentAnalyser());  // what to with comments
+    builder.setFilesMetric(CFMetric.FILES);
+
+
+    // Using Script Blocks and <cfscript> tags as classes
+    builder.withSquidAstVisitor(new SourceCodeBuilderVisitor<LexerlessGrammar>(new SourceCodeBuilderCallback() {
+      private int seq = 0;
+
+      @Override
+      public SourceCode createSourceCode(SourceCode parentSourceCode, AstNode astNode) {
+        seq++;
+        SourceClass cls = new SourceClass("class:" + seq);
+        cls.setStartAtLine(astNode.getTokenLine());
+        return cls;
+      }
+    }, CFGrammar.SCRIPT_BLOCK, CFGrammar.CFML_STATEMENT));
+
+    builder.withSquidAstVisitor(CounterVisitor.<LexerlessGrammar>builder().setMetricDef(CFMetric.CLASSES)
+      .subscribeTo(CFGrammar.SCRIPT_BLOCK, CFGrammar.CFML_STATEMENT).build());
+
+    // END CLASSES
+
+    // Components
+    builder.withSquidAstVisitor(new SourceCodeBuilderVisitor<LexerlessGrammar>(new SourceCodeBuilderCallback() {
+      private int seq = 0;
+
+      @Override
+      public SourceCode createSourceCode(SourceCode parentSourceCode, AstNode astNode) {
+        seq++;
+        SourceFunction function = new SourceFunction("component:" + seq);
+        function.setStartAtLine(astNode.getTokenLine());
+        return function;
+      }
+    }, CFGrammar.COMPONENT_DECLARATION));
+
+    builder.withSquidAstVisitor(CounterVisitor.<LexerlessGrammar>builder()
+      .setMetricDef(CFMetric.COMPONENTS)
+      .subscribeTo(CFGrammar.COMPONENT_DECLARATION)
+      .build());
+    // END COMPONENTS
+
+    // Functions
+    builder.withSquidAstVisitor(new SourceCodeBuilderVisitor<LexerlessGrammar>(new SourceCodeBuilderCallback() {
+      private int seq = 0;
+
+      @Override
+      public SourceCode createSourceCode(SourceCode parentSourceCode, AstNode astNode) {
+        seq++;
+        SourceFunction function = new SourceFunction("function:" + seq);
+        function.setStartAtLine(astNode.getTokenLine());
+        return function;
+      }
+    }, CFGrammar.FUNCTION_DECLARATION));
+
+    builder.withSquidAstVisitor(CounterVisitor.<LexerlessGrammar>builder()
+      .setMetricDef(CFMetric.FUNCTIONS)
+      .subscribeTo(CFGrammar.FUNCTION_DECLARATION)
+      .build());
+
+
+    // END FUNCTIONS
+
+    // Metrics (lines of code, comments, statements)
+    builder.withSquidAstVisitor(new LinesVisitor<LexerlessGrammar>(CFMetric.LINES));
+
+    builder.withSquidAstVisitor(new ComplexityVisitor());
+    builder.withSquidAstVisitor(CommentsVisitor.<LexerlessGrammar>builder().withCommentMetric(CFMetric.COMMENT_LINES)
+      .withNoSonar(true)
+      .withIgnoreHeaderComment(conf.getIgnoreHeaderComments())
+      .build());
+
+    // END METRICS
 
     return builder.build();
   }

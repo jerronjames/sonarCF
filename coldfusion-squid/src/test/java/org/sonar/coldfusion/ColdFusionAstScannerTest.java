@@ -36,54 +36,41 @@ import static org.fest.assertions.Assertions.assertThat;
 public class ColdFusionAstScannerTest {
 
   @Test
-  public void scriptBlocks() {
+  public void files() {
     AstScanner<LexerlessGrammar> scanner = ColdFusionAstScanner.create(new CFConfiguration(Charsets.UTF_8));
-    scanner.scanFiles(ImmutableList.of(new File("src/test/resources/metrics/Comments.cfc")));
+    scanner.scanFiles(ImmutableList.of(new File("src/test/resources/metrics/Comments.cfc"),
+      new File("src/test/resources/metrics/Functions.cfc")));
     SourceProject project = (SourceProject) scanner.getIndex().search(new QueryByType(SourceProject.class)).iterator().next();
-    assertThat(project.getInt(CFMetric.FILES)).isEqualTo(1);
-  }
-
- /* @Test
-  public void lines() {
-    SourceFile file = PHPAstScanner.scanSingleFile(new File("src/test/resources/metrics/lines.php"));
-    assertThat(file.getInt(PHPMetric.LINES)).isEqualTo(17);
+    assertThat(project.getInt(CFMetric.FILES)).isEqualTo(2);
   }
 
   @Test
-  public void lines_of_code() {
-    SourceFile file = PHPAstScanner.scanSingleFile(new File("src/test/resources/metrics/lines_of_code.php"));
-    assertThat(file.getInt(PHPMetric.LINES_OF_CODE)).isEqualTo(4);
+  public void scriptBlocks() {
+    SourceFile file = ColdFusionAstScanner.scanSingleFile(new File("src/test/resources/metrics/Functions.cfc"));
+    assertThat(file.getInt(CFMetric.CLASSES)).isEqualTo(1);
   }
 
   @Test
   public void functions() {
-    SourceFile file = PHPAstScanner.scanSingleFile(new File("src/test/resources/metrics/functions.php"));
-    assertThat(file.getInt(PHPMetric.FUNCTIONS)).isEqualTo(4);
+    SourceFile file = ColdFusionAstScanner.scanSingleFile(new File("src/test/resources/metrics/Functions.cfc"));
+    assertThat(file.getInt(CFMetric.FUNCTIONS)).isEqualTo(4);
   }
 
   @Test
-  public void classes() {
-    SourceFile file = PHPAstScanner.scanSingleFile(new File("src/test/resources/metrics/classes.php"));
-    assertThat(file.getInt(PHPMetric.CLASSES)).isEqualTo(4);
-  }
-
-  @Test
-  public void statements() {
-    SourceFile file = PHPAstScanner.scanSingleFile(new File("src/test/resources/metrics/statements.php"));
-    assertThat(file.getInt(PHPMetric.STATEMENTS)).isEqualTo(29);
+  public void components() {
+    SourceFile file = ColdFusionAstScanner.scanSingleFile(new File("src/test/resources/metrics/Functions.cfc"));
+    assertThat(file.getInt(CFMetric.COMPONENTS)).isEqualTo(1);
   }
 
   @Test
   public void comments() {
-    SourceFile file = PHPAstScanner.scanSingleFile(new File("src/test/resources/metrics/comments.php"));
-    assertThat(file.getInt(PHPMetric.COMMENT_LINES)).isEqualTo(3);
-    assertThat(file.getNoSonarTagLines()).contains(14);
-    assertThat(file.getNoSonarTagLines().size()).isEqualTo(1);
+    SourceFile file = ColdFusionAstScanner.scanSingleFile(new File("src/test/resources/metrics/Comments.cfc"));
+    assertThat(file.getInt(CFMetric.COMMENT_LINES)).isEqualTo(13);
   }
 
   @Test
-  public void complexity() {
-    SourceFile file = PHPAstScanner.scanSingleFile(new File("src/test/resources/metrics/complexity.php"));
-    assertThat(file.getInt(PHPMetric.COMPLEXITY)).isEqualTo(17);
-  } */
+  public void lines() {
+    SourceFile file = ColdFusionAstScanner.scanSingleFile(new File("src/test/resources/metrics/Comments.cfc"));
+    assertThat(file.getInt(CFMetric.COMMENT_LINES)).isEqualTo(13);
+  }
 }

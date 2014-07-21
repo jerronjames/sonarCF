@@ -31,7 +31,8 @@ public enum CFMetric implements MetricDef {
   CLASSES,
   FUNCTIONS,
   STATEMENTS,
-  COMPLEXITY;
+  COMPLEXITY,
+  COMPONENTS;
 
   @Override
   public String getName() {
