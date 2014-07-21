@@ -1,0 +1,29 @@
+<p>
+  Assignments within sub-expressions are hard to spot and therefore make the code less readable.</br>
+  It is also a common mistake to write <code>=</code> when <code>==</code> was meant.</br>
+  Ideally, expressions should not have side-effects.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+doSomething(i = 42);
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+i = 42;
+doSomething(i);
+</pre>
+
+<p>or</p>
+
+<pre>
+i = 42;
+doSomething(i);
+</pre>
+
+<h2>Exceptions</h2>
+<p>Assignments enclosed in relational expressions are allowed.</p>
+<pre>
+while ((line = nextLine()) != null) { }
+</pre>
