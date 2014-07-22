@@ -23,7 +23,6 @@ import org.sonar.api.rules.AnnotationRuleParser;
 import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.RuleRepository;
 import org.sonar.coldfusion.checks.CheckList;
-import org.sonar.plugins.coldfusion.core.ColdFusion;
 
 import java.util.List;
 

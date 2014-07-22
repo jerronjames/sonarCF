@@ -28,8 +28,6 @@ import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.RuleFinder;
 import org.sonar.api.utils.ValidationMessages;
 import org.sonar.coldfusion.checks.CheckList;
-import org.sonar.plugins.coldfusion.core.ColdFusion;
-
 import static org.fest.assertions.Assertions.assertThat;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;

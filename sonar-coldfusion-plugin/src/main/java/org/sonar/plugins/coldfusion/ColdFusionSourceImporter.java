@@ -17,28 +17,14 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.plugins.coldfusion.core;
+package org.sonar.plugins.coldfusion;
 
 import org.sonar.api.batch.AbstractSourceImporter;
-import org.sonar.api.batch.Phase;
-import org.sonar.api.batch.SensorContext;
-import org.sonar.api.resources.InputFileUtils;
-import org.sonar.api.resources.ProjectFileSystem;
 
-@Phase(name = Phase.Name.PRE)
 public class ColdFusionSourceImporter extends AbstractSourceImporter {
 
-  public ColdFusionSourceImporter(ColdFusion coldfusion) {
-    super(coldfusion);
-  }
-
-  protected void analyse(ProjectFileSystem fileSystem, SensorContext context) {
-    parseDirs(context, InputFileUtils.toFiles(fileSystem.mainFiles(ColdFusion.KEY)), fileSystem.getSourceDirs(), false, fileSystem.getSourceCharset());
-  }
-
-  @Override
-  public String toString() {
-    return getClass().getSimpleName();
+  public ColdFusionSourceImporter(ColdFusion language) {
+    super(language);
   }
 
 }

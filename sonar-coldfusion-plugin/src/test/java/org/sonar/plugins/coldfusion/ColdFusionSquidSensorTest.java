@@ -28,7 +28,6 @@ import org.sonar.api.measures.FileLinesContext;
 import org.sonar.api.measures.FileLinesContextFactory;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.*;
-import org.sonar.plugins.coldfusion.core.ColdFusion;
 
 import java.io.File;
 import java.nio.charset.Charset;

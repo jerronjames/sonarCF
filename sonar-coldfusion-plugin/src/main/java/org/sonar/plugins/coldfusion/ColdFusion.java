@@ -17,19 +17,18 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.plugins.coldfusion.core;
+package org.sonar.plugins.coldfusion;
 
 import org.apache.commons.lang.StringUtils;
 import org.sonar.api.config.Settings;
 import org.sonar.api.resources.AbstractLanguage;
 import org.sonar.api.resources.Project;
-import org.sonar.plugins.coldfusion.ColdFusionPlugin;
 
 public class ColdFusion extends AbstractLanguage {
 
-  public static final String KEY = "js";
+  public static final String KEY = "coldfusion";
 
-  private Settings settings;
+  private final Settings settings;
 
   public ColdFusion(Settings configuration) {
     super(KEY, "ColdFusion");
@@ -40,6 +39,7 @@ public class ColdFusion extends AbstractLanguage {
     return this.settings;
   }
 
+  @Override
   public String[] getFileSuffixes() {
     String[] suffixes = settings.getStringArray(ColdFusionPlugin.FILE_SUFFIXES_KEY);
     if (suffixes == null || suffixes.length == 0) {

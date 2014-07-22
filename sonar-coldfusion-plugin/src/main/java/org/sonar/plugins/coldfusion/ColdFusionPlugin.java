@@ -23,8 +23,6 @@ import com.google.common.collect.ImmutableList;
 import org.sonar.api.Properties;
 import org.sonar.api.Property;
 import org.sonar.api.SonarPlugin;
-import org.sonar.plugins.coldfusion.core.ColdFusion;
-import org.sonar.plugins.coldfusion.core.ColdFusionSourceImporter;
 
 import java.util.List;
 

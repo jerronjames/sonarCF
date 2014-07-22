@@ -27,7 +27,7 @@ public class ColdFusionPluginTest {
 
   @Test
   public void get_extensions() throws Exception {
-    assertThat(new ColdFusionPlugin().getExtensions()).hasSize(10);
+    assertThat(new ColdFusionPlugin().getExtensions()).hasSize(5);
   }
 
 }

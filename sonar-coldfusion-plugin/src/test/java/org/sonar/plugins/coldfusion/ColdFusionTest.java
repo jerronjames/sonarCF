@@ -22,32 +22,30 @@ package org.sonar.plugins.coldfusion;
 import org.junit.Before;
 import org.junit.Test;
 import org.sonar.api.config.Settings;
-import org.sonar.plugins.coldfusion.core.ColdFusion;
-
 import static org.fest.assertions.Assertions.assertThat;
 
 public class ColdFusionTest {
 
   private Settings settings;
-  private ColdFusion javaScript;
+  private ColdFusion language;
 
   @Before
   public void setUp() {
     settings = new Settings();
-    javaScript = new ColdFusion(settings);
+    language = new ColdFusion(settings);
   }
 
   @Test
   public void defaultSuffixes() {
     settings.setProperty(ColdFusionPlugin.FILE_SUFFIXES_KEY, "");
-    assertThat(javaScript.getFileSuffixes()).containsOnly(".js");
-    assertThat(javaScript.getSettings()).isSameAs(settings);
+    assertThat(language.getFileSuffixes()).containsOnly(".cfc");
+    assertThat(language.getSettings()).isSameAs(settings);
   }
 
   @Test
   public void customSuffixes() {
     settings.setProperty(ColdFusionPlugin.FILE_SUFFIXES_KEY, "coldfusion");
-    assertThat(javaScript.getFileSuffixes()).containsOnly("coldfusion");
+    assertThat(language.getFileSuffixes()).containsOnly("coldfusion");
   }
 
 }

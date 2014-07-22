@@ -19,23 +19,19 @@
  */
 package org.sonar.plugins.coldfusion;
 
-import org.sonar.api.profiles.AnnotationProfileParser;
-import org.sonar.api.profiles.ProfileDefinition;
-import org.sonar.api.profiles.RulesProfile;
-import org.sonar.api.utils.ValidationMessages;
-import org.sonar.coldfusion.checks.CheckList;
+import org.junit.Test;
 
-public class ColdFusionProfile extends ProfileDefinition {
+import static org.fest.assertions.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
 
-  private final AnnotationProfileParser annotationProfileParser;
+public class ColdFusionSourceImporterTest {
 
-  public ColdFusionProfile(AnnotationProfileParser annotationProfileParser) {
-    this.annotationProfileParser = annotationProfileParser;
-  }
+  @Test
+  public void test() {
+    ColdFusion language = mock(ColdFusion.class);
+    ColdFusionSourceImporter importer = new ColdFusionSourceImporter(language);
 
-  @Override
-  public RulesProfile createProfile(ValidationMessages validation) {
-    return annotationProfileParser.parse(CheckList.REPOSITORY_KEY, CheckList.SONAR_WAY_PROFILE, ColdFusion.KEY, CheckList.getChecks(), validation);
+    assertThat(importer.getLanguage()).isSameAs(language);
   }
 
 }

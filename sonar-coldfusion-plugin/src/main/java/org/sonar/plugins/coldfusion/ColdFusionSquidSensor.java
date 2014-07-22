@@ -26,7 +26,6 @@ import org.sonar.api.measures.FileLinesContextFactory;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.Project;
 import org.sonar.coldfusion.checks.CheckList;
-import org.sonar.plugins.coldfusion.core.ColdFusion;
 
 public class ColdFusionSquidSensor implements Sensor {
 
