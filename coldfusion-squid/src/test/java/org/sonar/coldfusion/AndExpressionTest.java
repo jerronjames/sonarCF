@@ -36,8 +36,8 @@ public class AndExpressionTest {
         .matches("condition1 AND condition2")
         .matches("con1 AND con2 AND con3")
         .matches("!condition1 AND condition2")
-        .notMatches("con1 AND")
-        .notMatches("AND con2");
+        .matches("con1 && con2")
+        .matches("cont1 && ! con2");
 
   }
 }
