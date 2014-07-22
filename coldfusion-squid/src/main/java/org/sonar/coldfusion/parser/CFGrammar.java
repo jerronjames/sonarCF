@@ -425,9 +425,9 @@ public enum CFGrammar implements GrammarRuleKey {
       b.sequence(THIS, DOT, IDENTIFIERS),
       b.sequence(VARIABLES, DOT, IDENTIFIERS),
       IDENTIFIERS));
-    b.rule(SCRIPT_BLOCK).is(b.firstOf(COMPONENT_DECLARATION, b.sequence(b.oneOrMore(ELEMENT), END_OF_SCRIPT_BLOCK)));
+    b.rule(SCRIPT_BLOCK).is(b.firstOf(COMPONENT_DECLARATION, b.sequence(b.zeroOrMore(ELEMENT), END_OF_SCRIPT_BLOCK)));
     b.rule(COMPONENT_DECLARATION).is(COMPONENT, b.zeroOrMore(COMPONENT_ATTRIBUTE), COMPONENT_BLOCK);
-    b.rule(END_OF_SCRIPT_BLOCK).is(b.optional(SPACING), b.firstOf(EOS, EOS_NO_LB, EOF));
+    b.rule(END_OF_SCRIPT_BLOCK).is(b.firstOf(EOS, EOS_NO_LB, EOF));
     b.rule(ELEMENT).is(b.firstOf(FUNCTION_DECLARATION, STATEMENT));
     b.rule(FUNCTION_DECLARATION).is(b.sequence(
       b.firstOf(
@@ -450,7 +450,7 @@ public enum CFGrammar implements GrammarRuleKey {
         VARIABLE),
       b.optional(b.sequence(EQUALSOP, IMPLIES_EXPRESSION))));
     b.rule(PARAMETER_TYPE).is(TYPE_SPEC);
-    b.rule(COMPONENT_ATTRIBUTE).is(VARIABLE, b.optional(COLON, VARIABLE), EQUALSOP, b.optional(IMPLIES_EXPRESSION));
+    b.rule(COMPONENT_ATTRIBUTE).is(VARIABLE, b.optional(COLON, VARIABLE), EQUALSOP, IMPLIES_EXPRESSION);
     b.rule(FUNCTION_ATTRIBUTE).is(b.nextNot(LPARENTHESIS), IMPLIES_EXPRESSION);
     b.rule(COMPOUND_STATEMENT).is(LCURLYBRACE, b.zeroOrMore(STATEMENT), RCURLYBRACE, b.optional(SPACING));
     b.rule(COMPONENT_BLOCK).is(LCURLYBRACE, b.zeroOrMore(ELEMENT), RCURLYBRACE);
@@ -503,7 +503,7 @@ public enum CFGrammar implements GrammarRuleKey {
     b.rule(EXCEPTION_TYPE).is(b.firstOf(
       b.sequence(VARIABLE, b.zeroOrMore(DOT, b.firstOf(RESERVED_WORD, VARIABLE))),
       STRING_LITERAL));
-    b.rule(CONSTANT_EXPRESSION).is(b.optional(SPACING),
+    b.rule(CONSTANT_EXPRESSION).is(
       b.firstOf(
         b.sequence(LPARENTHESIS, CONSTANT_EXPRESSION, RPARENTHESIS),
         b.sequence(MINUS, LITERAL),
@@ -516,7 +516,7 @@ public enum CFGrammar implements GrammarRuleKey {
       b.zeroOrMore(CASE_STATEMENT),
       RCURLYBRACE,
       b.optional(SPACING));
-    b.rule(CASE_STATEMENT).is(b.optional(SPACING),
+    b.rule(CASE_STATEMENT).is(
       b.firstOf(b.sequence(CASE, CONSTANT_EXPRESSION, COLON, b.zeroOrMore(STATEMENT)),
         b.sequence(DEFAULT, COLON)), b.zeroOrMore(STATEMENT));
     b.rule(TAG_OPERATOR_STATEMENT).is(
@@ -614,7 +614,7 @@ public enum CFGrammar implements GrammarRuleKey {
     b.rule(ARGUMENT).is(b.firstOf(b.sequence(VARIABLE, COLON, IMPLIES_EXPRESSION),
       b.sequence(VARIABLE, EQUALSOP, IMPLIES_EXPRESSION),
       IMPLIES_EXPRESSION));
-    b.rule(IDENTIFIERS).is(b.optional(SPACING), b.firstOf(
+    b.rule(IDENTIFIERS).is(b.firstOf(
       IDENTIFIER,
       DOES,
       CONTAIN,
@@ -659,7 +659,7 @@ public enum CFGrammar implements GrammarRuleKey {
       CASE,
       DEFAULT,
       IMPORT), b.optional(SPACING));
-    b.rule(PRIMARY_EXPRESSION).is(SPACING, b.firstOf(
+    b.rule(PRIMARY_EXPRESSION).is(b.firstOf(
       IMPLICIT_ARRAY,
       IMPLICIT_STRUCT,
       NULL,
