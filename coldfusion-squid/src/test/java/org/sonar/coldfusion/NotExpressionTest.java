@@ -36,7 +36,7 @@ public class NotExpressionTest {
       .matches("NOT(x GTE y)")
       .matches("!var1")
       .matches("NOT(condition)")
-      ,matches("c1 NOTc2");
+      .matches("NOT c2");
   }
 
 }

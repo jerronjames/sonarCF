@@ -26,14 +26,18 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 
 import static org.sonar.sslr.tests.Assertions.assertThat;
 
-public class Test {
+public class AndExpressionTest {
 
   LexerlessGrammar g = CFGrammar.createGrammar();
 
   @Test
   public void ok() {
-    assertThat(g.rule(CFGrammar.))
-        .matches("");
+    assertThat(g.rule(CFGrammar.AND_EXPRESSION))
+        .matches("condition1 AND condition2")
+        .matches("con1 AND con2 AND con3")
+        .matches("!condition1 AND condition2")
+        .notMatches("con1 AND")
+        .notMatches("AND con2");
 
   }
 }
