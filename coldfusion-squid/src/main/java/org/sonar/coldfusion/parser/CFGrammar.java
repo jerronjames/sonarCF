@@ -725,7 +725,9 @@ public enum CFGrammar implements GrammarRuleKey {
     Object[] rest = new Object[CFKeyword.values().length - 2];
     for (int i = 0; i < CFKeyword.values().length; i++) {
       CFKeyword tokenType = CFKeyword.values()[i];
-      b.rule(tokenType).is(SPACING, tokenType.getValue(), b.nextNot(LETTER_OR_DIGIT));
+      b.rule(tokenType).is(SPACING, 
+        b.regexp(tokenType.getValue() + "|" + tokenType.getValue().toUpperCase()), 
+        b.nextNot(LETTER_OR_DIGIT));
       if (i > 1) {
         rest[i - 2] = tokenType.getValue();
       }
