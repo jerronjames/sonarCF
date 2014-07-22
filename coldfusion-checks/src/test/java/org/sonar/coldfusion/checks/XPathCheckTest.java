@@ -19,16 +19,16 @@
  */
 package org.sonar.coldfusion.checks;
 
-import com.sonar.sslr.squid.checks.CheckMessagesVerifier;
 import org.junit.Test;
 import org.sonar.coldfusion.ColdFusionAstScanner;
-import org.sonar.squid.api.SourceFile;
+import org.sonar.squidbridge.api.SourceFile;
+import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 import java.io.File;
 
 public class XPathCheckTest {
 
-  private XPathCheck check = new XPathCheck();
+  private final XPathCheck check = new XPathCheck();
 
   @Test
   public void check() {
@@ -37,7 +37,8 @@ public class XPathCheckTest {
 
     SourceFile file = ColdFusionAstScanner.scanSingleFile(new File("src/test/resources/checks/Xpath.cfc"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages())
-        .next().atLine(2).withMessage("Avoid identifiers which are too long!")
-        .noMore();
+      .next().atLine(2).withMessage("Avoid identifiers which are too long!")
+      .noMore();
   }
+
 }

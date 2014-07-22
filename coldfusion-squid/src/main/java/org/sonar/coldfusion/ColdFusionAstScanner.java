@@ -19,33 +19,28 @@
  */
 package org.sonar.coldfusion;
 
-import org.sonar.coldfusion.CharsetAwareVisitor;
+import com.google.common.base.Charsets;
+import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.impl.Parser;
 import org.sonar.coldfusion.api.CFMetric;
 import org.sonar.coldfusion.metrics.ComplexityVisitor;
 import org.sonar.coldfusion.parser.CFGrammar;
 import org.sonar.coldfusion.parser.CFParser;
-import org.sonar.coldfusion.CFCommentAnalyser;
-
-import com.google.common.base.Charsets;
-import com.google.common.collect.ImmutableList;
+import org.sonar.squidbridge.AstScanner;
+import org.sonar.squidbridge.SourceCodeBuilderCallback;
+import org.sonar.squidbridge.SourceCodeBuilderVisitor;
+import org.sonar.squidbridge.SquidAstVisitor;
+import org.sonar.squidbridge.SquidAstVisitorContextImpl;
 import org.sonar.squidbridge.api.SourceClass;
 import org.sonar.squidbridge.api.SourceCode;
 import org.sonar.squidbridge.api.SourceFile;
 import org.sonar.squidbridge.api.SourceFunction;
 import org.sonar.squidbridge.api.SourceProject;
-import org.sonar.sslr.parser.LexerlessGrammar;
-import com.sonar.sslr.impl.Parser;
-import com.sonar.sslr.api.AstNode;
-import org.sonar.squidbridge.SourceCodeBuilderCallback;
-import org.sonar.squidbridge.SourceCodeBuilderVisitor;
-import org.sonar.squidbridge.SquidAstVisitor;
-import org.sonar.squidbridge.SquidAstVisitorContextImpl;
-import org.sonar.squidbridge.AstScanner;
 import org.sonar.squidbridge.indexer.QueryByType;
-import org.sonar.squidbridge.metrics.CounterVisitor;
 import org.sonar.squidbridge.metrics.CommentsVisitor;
+import org.sonar.squidbridge.metrics.CounterVisitor;
 import org.sonar.squidbridge.metrics.LinesVisitor;
-
+import org.sonar.sslr.parser.LexerlessGrammar;
 
 import java.io.File;
 import java.util.Collection;
@@ -68,7 +63,7 @@ public final class ColdFusionAstScanner {
     if (sources.size() != 1) {
       throw new IllegalStateException("Only one SourceFile was expected whereas " + sources.size() + " has been returned.");
     }
-    System.out.println("TESTING " + (SourceFile) sources.iterator().next());
+    System.out.println("TESTING " + sources.iterator().next());
     return (SourceFile) sources.iterator().next();
   }
 
@@ -78,10 +73,9 @@ public final class ColdFusionAstScanner {
 
     AstScanner.Builder<LexerlessGrammar> builder = AstScanner.<LexerlessGrammar>builder(context).setBaseParser(parser);
 
-    builder.withMetrics(CFMetric.values());               // get all Metrics available
-    builder.setCommentAnalyser(new CFCommentAnalyser());  // what to with comments
+    builder.withMetrics(CFMetric.values()); // get all Metrics available
+    builder.setCommentAnalyser(new CFCommentAnalyser()); // what to with comments
     builder.setFilesMetric(CFMetric.FILES);
-
 
     // Using Script Blocks and <cfscript> tags as classes
     builder.withSquidAstVisitor(new SourceCodeBuilderVisitor<LexerlessGrammar>(new SourceCodeBuilderCallback() {
@@ -137,7 +131,6 @@ public final class ColdFusionAstScanner {
       .setMetricDef(CFMetric.FUNCTIONS)
       .subscribeTo(CFGrammar.FUNCTION_DECLARATION)
       .build());
-
 
     // END FUNCTIONS
 

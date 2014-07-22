@@ -19,10 +19,10 @@
  */
 package org.sonar.coldfusion.checks;
 
-import com.sonar.sslr.squid.checks.CheckMessagesVerifier;
 import org.junit.Test;
 import org.sonar.coldfusion.ColdFusionAstScanner;
-import org.sonar.squid.api.SourceFile;
+import org.sonar.squidbridge.api.SourceFile;
+import org.sonar.squidbridge.checks.CheckMessagesVerifier;
 
 import java.io.File;
 
@@ -34,7 +34,8 @@ public class ThisIdentifierCheckTest {
 
     SourceFile file = ColdFusionAstScanner.scanSingleFile(new File("src/test/resources/checks/This.cfc"), check);
     CheckMessagesVerifier.verify(file.getCheckMessages())
-        .next().atLine(3).withMessage("Avoid using 'this' identifier")
-        .noMore();
+      .next().atLine(3).withMessage("Avoid using 'this' identifier")
+      .noMore();
   }
+
 }

@@ -17,34 +17,22 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.coldfusion.model;
+package org.sonar.coldfusion;
 
 import com.google.common.base.Charsets;
 import com.google.common.collect.ImmutableList;
-import com.sonar.sslr.api.AstNode;
-import com.sonar.sslr.impl.Parser;
-import org.sonar.sslr.parser.LexerlessGrammar;
 import org.junit.Test;
-
-import org.sonar.coldfusion.CFConfiguration;
-import org.sonar.coldfusion.api.CFKeyword;
-import org.sonar.coldfusion.api.CFPunctuator;
-import org.sonar.coldfusion.api.CFTokenType;
 import org.sonar.coldfusion.api.CFMetric;
-import org.sonar.coldfusion.parser.CFGrammar;
-import org.sonar.coldfusion.parser.CFParser;
-import org.sonar.coldfusion.ColdFusionAstScanner;
-
 import org.sonar.squidbridge.AstScanner;
-import org.sonar.squidbridge.api.SourceFile;
 import org.sonar.squidbridge.api.SourceProject;
 import org.sonar.squidbridge.indexer.QueryByType;
+import org.sonar.sslr.parser.LexerlessGrammar;
 
 import java.io.File;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-public class ASTMakerTest {
+public class FilesMetricTest {
 
   @Test
   public void files() {
