@@ -38,6 +38,6 @@ public class IncludeStatementTest {
   @Test
   public void realLife() {
     assertThat(g.rule(CFGrammar.INCLUDE_STATEMENT))
-      .matches("include \"template.cfm\";");
+      .matches("Include \"template.cfm\";");
   }
 }
