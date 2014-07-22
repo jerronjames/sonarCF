@@ -1,5 +1,0 @@
-eclipse.preferences.version=1
-extraProperties=sonar.pluginName\=ColdFusion\r\nsonar.version\=3.2\r\nsonar.pluginClass\=org.sonar.plugins.coldfusion.ColdFusionPlugin\r\nsonar.snapshotRepository.id\=codehaus.org\r\nsonar.snapshotRepository.url\=dav\:https\://dav.codehaus.org/snapshots.repository/sonar-plugins
-projectKey=org.codehaus.sonar-plugins.coldfusion\:sonar-coldfusion-plugin
-serverUrl=http\://localhost\:9000
-version=2
