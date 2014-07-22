@@ -34,8 +34,6 @@ import java.io.File;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-//FIXME
-@Ignore("Broken test, Functions.cfc does not exist")
 public class ColdFusionAstScannerTest {
 
   @Test
@@ -47,18 +45,21 @@ public class ColdFusionAstScannerTest {
     assertThat(project.getInt(CFMetric.FILES)).isEqualTo(2);
   }
 
+  @Ignore("Need to fix AstScanner")
   @Test
   public void scriptBlocks() {
     SourceFile file = ColdFusionAstScanner.scanSingleFile(new File("src/test/resources/metrics/Functions.cfc"));
-    assertThat(file.getInt(CFMetric.CLASSES)).isEqualTo(1);
+    assertThat(file.getInt(CFMetric.SCRIPT_BLOCKS)).isEqualTo(1);
   }
 
+  @Ignore
   @Test
   public void functions() {
     SourceFile file = ColdFusionAstScanner.scanSingleFile(new File("src/test/resources/metrics/Functions.cfc"));
     assertThat(file.getInt(CFMetric.FUNCTIONS)).isEqualTo(4);
   }
 
+  @Ignore
   @Test
   public void components() {
     SourceFile file = ColdFusionAstScanner.scanSingleFile(new File("src/test/resources/metrics/Functions.cfc"));
@@ -71,9 +72,19 @@ public class ColdFusionAstScannerTest {
     assertThat(file.getInt(CFMetric.COMMENT_LINES)).isEqualTo(13);
   }
 
+  @Ignore
   @Test
-  public void lines() {
+  public void linesOfCode() {
     SourceFile file = ColdFusionAstScanner.scanSingleFile(new File("src/test/resources/metrics/Comments.cfc"));
-    assertThat(file.getInt(CFMetric.COMMENT_LINES)).isEqualTo(13);
+    assertThat(file.getInt(CFMetric.LINES_OF_CODE)).isEqualTo(4);
+    file = ColdFusionAstScanner.scanSingleFile(new File("src/test/resources/metrics/Complex.cfc"));
+    assertThat(file.getInt(CFMetric.LINES_OF_CODE)).isEqualTo(13);
+  }
+
+  @Ignore
+  @Test
+  public void ifStatements() {
+    SourceFile file = ColdFusionAstScanner.scanSingleFile(new File("src/test/resources/metrics/IfStatement.cfc"));
+    assertThat(file.getInt(CFMetric.STATEMENTS)).isEqualTo(2);
   }
 }

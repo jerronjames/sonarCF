@@ -21,7 +21,9 @@ package org.sonar.coldfusion;
 
 import com.google.common.base.Charsets;
 import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.Token;
 import com.sonar.sslr.impl.Parser;
+import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.coldfusion.api.CFMetric;
 import org.sonar.coldfusion.metrics.ComplexityVisitor;
 import org.sonar.coldfusion.parser.CFGrammar;
@@ -40,7 +42,7 @@ import org.sonar.squidbridge.indexer.QueryByType;
 import org.sonar.squidbridge.metrics.CommentsVisitor;
 import org.sonar.squidbridge.metrics.CounterVisitor;
 import org.sonar.squidbridge.metrics.LinesVisitor;
-import org.sonar.sslr.parser.LexerlessGrammar;
+import org.sonar.squidbridge.metrics.LinesOfCodeVisitor;
 
 import java.io.File;
 import java.util.Collection;
@@ -63,37 +65,40 @@ public final class ColdFusionAstScanner {
     if (sources.size() != 1) {
       throw new IllegalStateException("Only one SourceFile was expected whereas " + sources.size() + " has been returned.");
     }
-    System.out.println("TESTING " + sources.iterator().next());
     return (SourceFile) sources.iterator().next();
   }
 
+  /**
+    * Create method
+    */
   public static AstScanner<LexerlessGrammar> create(CFConfiguration conf, SquidAstVisitor<LexerlessGrammar>... visitors) {
     final SquidAstVisitorContextImpl<LexerlessGrammar> context = new SquidAstVisitorContextImpl<LexerlessGrammar>(new SourceProject("ColdFusion Project"));
     final Parser<LexerlessGrammar> parser = CFParser.create(conf);
 
+    // create Builder to add to
     AstScanner.Builder<LexerlessGrammar> builder = AstScanner.<LexerlessGrammar>builder(context).setBaseParser(parser);
 
     builder.withMetrics(CFMetric.values()); // get all Metrics available
     builder.setCommentAnalyser(new CFCommentAnalyser()); // what to with comments
     builder.setFilesMetric(CFMetric.FILES);
 
-    // Using Script Blocks and <cfscript> tags as classes
+    // Script blocks (CFML_STATEMENTS, SCRIPT_BLOCKS)
     builder.withSquidAstVisitor(new SourceCodeBuilderVisitor<LexerlessGrammar>(new SourceCodeBuilderCallback() {
       private int seq = 0;
 
       @Override
       public SourceCode createSourceCode(SourceCode parentSourceCode, AstNode astNode) {
         seq++;
-        SourceClass cls = new SourceClass("class:" + seq);
+        SourceClass cls = new SourceClass("script block:" + seq);
         cls.setStartAtLine(astNode.getTokenLine());
         return cls;
       }
     }, CFGrammar.SCRIPT_BLOCK, CFGrammar.CFML_STATEMENT));
 
-    builder.withSquidAstVisitor(CounterVisitor.<LexerlessGrammar>builder().setMetricDef(CFMetric.CLASSES)
+    builder.withSquidAstVisitor(CounterVisitor.<LexerlessGrammar>builder().setMetricDef(CFMetric.SCRIPT_BLOCKS)
       .subscribeTo(CFGrammar.SCRIPT_BLOCK, CFGrammar.CFML_STATEMENT).build());
 
-    // END CLASSES
+    // END SCRIPT_BLOCKS
 
     // Components
     builder.withSquidAstVisitor(new SourceCodeBuilderVisitor<LexerlessGrammar>(new SourceCodeBuilderCallback() {
@@ -134,8 +139,14 @@ public final class ColdFusionAstScanner {
 
     // END FUNCTIONS
 
-    // Metrics (lines of code, comments, statements)
+    // Lines of code and comments
     builder.withSquidAstVisitor(new LinesVisitor<LexerlessGrammar>(CFMetric.LINES));
+    builder.withSquidAstVisitor(new LinesOfCodeVisitor<LexerlessGrammar>(CFMetric.LINES_OF_CODE) {
+      @Override
+      public void visitToken(Token token) {
+          super.visitToken(token);
+      }
+    });
 
     builder.withSquidAstVisitor(new ComplexityVisitor());
     builder.withSquidAstVisitor(CommentsVisitor.<LexerlessGrammar>builder().withCommentMetric(CFMetric.COMMENT_LINES)
@@ -143,7 +154,42 @@ public final class ColdFusionAstScanner {
       .withIgnoreHeaderComment(conf.getIgnoreHeaderComments())
       .build());
 
-    // END METRICS
+    // END LINES OF CODE
+
+    // Statements
+    builder.withSquidAstVisitor(CounterVisitor.<LexerlessGrammar>builder()
+      .setMetricDef(CFMetric.STATEMENTS)
+      .subscribeTo(
+          CFGrammar.IF_STATEMENT,
+          CFGrammar.WHILE_STATEMENT,
+          CFGrammar.FOR_STATEMENT,
+          CFGrammar.DO_WHILE_STATEMENT,
+          CFGrammar.SWITCH_STATEMENT,
+          CFGrammar.TRY_CATCH_STATEMENT,
+          CFGrammar.LOCK_STATEMENT,
+          CFGrammar.THREAD_STATEMENT,
+          CFGrammar.COMPOUND_STATEMENT,
+          CFGrammar.RETURN_STATEMENT,
+          CFGrammar.FINALLY_STATEMENT,
+          CFGrammar.TAG_OPERATOR_STATEMENT,
+          CFGrammar.INCLUDE_STATEMENT,
+          CFGrammar.TRANSACTION_STATEMENT,
+          CFGrammar.ABORT_STATEMENT,
+          CFGrammar.THROW_STATEMENT,
+          CFGrammar.EXIT_STATEMENT,
+          CFGrammar.PARAM_STATEMENT,
+          CFGrammar.PROPERTY_STATEMENT
+        ).build());
+
+    // END STATEMENTS
+
+    /* External visitors (typically Check ones) */
+    for (SquidAstVisitor<LexerlessGrammar> visitor : visitors) {
+      if (visitor instanceof CharsetAwareVisitor) {
+        ((CharsetAwareVisitor) visitor).setCharset(conf.getCharset());
+      }
+      builder.withSquidAstVisitor(visitor);
+    }
 
     return builder.build();
   }

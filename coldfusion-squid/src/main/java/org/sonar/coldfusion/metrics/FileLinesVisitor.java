@@ -63,6 +63,7 @@ public class FileLinesVisitor extends SquidAstVisitor<LexerlessGrammar> implemen
     for (Trivia trivia : trivias) {
       if (trivia.isComment()) {
         linesOfComments.add(trivia.getToken().getLine());
+        //throw new IllegalArgumentException("Comment Line Found" + linesOfComments.size());
       }
     }
   }

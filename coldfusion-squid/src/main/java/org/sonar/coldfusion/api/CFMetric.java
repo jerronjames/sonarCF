@@ -28,7 +28,7 @@ public enum CFMetric implements MetricDef {
   LINES,
   FILES,
   COMMENT_LINES,
-  CLASSES,
+  SCRIPT_BLOCKS,
   FUNCTIONS,
   STATEMENTS,
   COMPLEXITY,
