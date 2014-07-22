@@ -26,11 +26,6 @@
       <artifactId>sslr-testing-harness</artifactId>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>org.codehaus.sonar</groupId>
-      <artifactId>sonar-squid</artifactId>
-      <version>${sonar.version}</version>
-    </dependency>
 
     <dependency>
       <groupId>junit</groupId>
@@ -48,5 +43,4 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-
 </project>
