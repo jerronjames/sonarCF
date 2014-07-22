@@ -26,18 +26,15 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 
 import static org.sonar.sslr.tests.Assertions.assertThat;
 
-public class AndExpressionTest {
+public class TernaryTest {
 
   LexerlessGrammar g = CFGrammar.createGrammar();
 
   @Test
   public void ok() {
-    assertThat(g.rule(CFGrammar.AND_EXPRESSION))
-        .matches("condition1 AND condition2")
-        .matches("con1 AND con2 AND con3")
-        .matches("!condition1 AND condition2")
-        .matches("con1 && con2")
-        .matches("cont1 && !con2");
+    assertThat(g.rule(CFGrammar.TERNARY))
+        .matches("(a GTE 5) ? v2 : v1")
+        .matches("(a >= 1 && b >= 1) ? 1 : (a <= 0 && b >= 1) ? 2 : (a <= 0 && b <= 0) ? 3 : 4");
 
   }
 }
