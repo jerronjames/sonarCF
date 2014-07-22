@@ -19,15 +19,10 @@
  */
 package org.sonar.coldfusion.parser;
 
-import java.io.File;
-import java.io.IOException;
-import org.sonar.coldfusion.parser.CFGrammar;
-import org.sonar.coldfusion.CFConfiguration;
 import com.sonar.sslr.impl.Parser;
-import org.sonar.coldfusion.lexer.CFLexer;
+import org.sonar.coldfusion.CFConfiguration;
 import org.sonar.sslr.parser.LexerlessGrammar;
 import org.sonar.sslr.parser.ParserAdapter;
-
 
 public final class CFParser {
 
@@ -35,7 +30,7 @@ public final class CFParser {
   }
 
   public static Parser<LexerlessGrammar> create(CFConfiguration conf) {
-  	return new ParserAdapter<LexerlessGrammar>(conf.getCharset(), CFGrammar.createGrammar());
+    return new ParserAdapter<LexerlessGrammar>(conf.getCharset(), CFGrammar.createGrammar());
   }
 
 }
