@@ -63,8 +63,7 @@
     <maven.test.redirectTestOutputToFile>true</maven.test.redirectTestOutputToFile>
 
     <sonar.version>3.2</sonar.version>
-    <sslr.version>1.19.2</sslr.version>
-    <sonarCommonRules.version>1.2</sonarCommonRules.version>
+    <sslr.version>1.20</sslr.version>
   </properties>
 
   <dependencyManagement>
@@ -88,11 +87,6 @@
         <groupId>org.codehaus.sonar</groupId>
         <artifactId>sonar-channel</artifactId>
         <version>${sonar.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.codehaus.sonar.common-rules</groupId>
-        <artifactId>sonar-common-rules</artifactId>
-        <version>${sonarCommonRules.version}</version>
       </dependency>
 
       <dependency>

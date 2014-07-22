@@ -20,15 +20,11 @@
 package org.sonar.plugins.coldfusion;
 
 import com.google.common.collect.ImmutableList;
-import org.sonar.api.Extension;
 import org.sonar.api.Properties;
 import org.sonar.api.Property;
 import org.sonar.api.SonarPlugin;
-import org.sonar.plugins.coldfusion.colorizer.ColdFusionColorizerFormat;
 import org.sonar.plugins.coldfusion.core.ColdFusion;
 import org.sonar.plugins.coldfusion.core.ColdFusionSourceImporter;
-import org.sonar.plugins.coldfusion.cpd.ColdFusionCpdMapping;
-import org.sonar.plugins.coldfusion.lcov.LCOVSensor;
 
 import java.util.List;
 
@@ -40,13 +36,6 @@ import java.util.List;
     name = "File suffixes",
     description = "Comma-separated list of suffixes for files to analyze.",
     global = true,
-    project = true),
-  @Property(
-    key = ColdFusionPlugin.LCOV_REPORT_PATH,
-    defaultValue = ColdFusionPlugin.LCOV_REPORT_PATH_DEFAULT_VALUE,
-    name = "LCOV file",
-    description = "Path (absolute or relative) to the file with LCOV data.",
-    global = true,
     project = true)
 })
 public class ColdFusionPlugin extends SonarPlugin {
@@ -57,25 +46,15 @@ public class ColdFusionPlugin extends SonarPlugin {
   public static final String FILE_SUFFIXES_KEY = "sonar.coldfusion.file.suffixes";
   public static final String FILE_SUFFIXES_DEFVALUE = ".cfc";
 
-  public static final String PROPERTY_PREFIX = "sonar.coldfusion";
-
-  public static final String LCOV_REPORT_PATH = PROPERTY_PREFIX + ".lcov.reportPath";
-  public static final String LCOV_REPORT_PATH_DEFAULT_VALUE = "";
-
+  @Override
   public List getExtensions() {
     return ImmutableList.of(
-        ColdFusion.class,
-        ColdFusionSourceImporter.class,
-        ColdFusionColorizerFormat.class,
-        ColdFusionCpdMapping.class,
+      ColdFusion.class,
+      ColdFusionSourceImporter.class,
 
-        ColdFusionSquidSensor.class,
-        ColdFusionRuleRepository.class,
-        ColdFusionProfile.class,
-
-        ColdFusionCommonRulesEngine.class,
-        ColdFusionCommonRulesDecorator.class,
-
-        LCOVSensor.class);
+      ColdFusionSquidSensor.class,
+      ColdFusionRuleRepository.class,
+      ColdFusionProfile.class);
   }
+
 }

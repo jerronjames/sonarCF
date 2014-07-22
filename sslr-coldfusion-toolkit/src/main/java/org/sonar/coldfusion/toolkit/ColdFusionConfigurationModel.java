@@ -25,20 +25,15 @@ import com.sonar.sslr.api.Grammar;
 import com.sonar.sslr.impl.Parser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sonar.colorizer.CDocTokenizer;
-import org.sonar.colorizer.CppDocTokenizer;
-import org.sonar.colorizer.JavadocTokenizer;
-import org.sonar.colorizer.KeywordsTokenizer;
-import org.sonar.colorizer.StringTokenizer;
-import org.sonar.colorizer.Tokenizer;
 import org.sonar.coldfusion.CFConfiguration;
-import org.sonar.coldfusion.api.CFKeyword;
 import org.sonar.coldfusion.parser.CFParser;
+import org.sonar.colorizer.Tokenizer;
 import org.sonar.sslr.toolkit.AbstractConfigurationModel;
 import org.sonar.sslr.toolkit.ConfigurationProperty;
 import org.sonar.sslr.toolkit.Validators;
 
 import java.nio.charset.Charset;
+import java.util.Collections;
 import java.util.List;
 
 public class ColdFusionConfigurationModel extends AbstractConfigurationModel {
@@ -49,9 +44,10 @@ public class ColdFusionConfigurationModel extends AbstractConfigurationModel {
 
   @VisibleForTesting
   ConfigurationProperty charsetProperty = new ConfigurationProperty("Charset", CHARSET_PROPERTY_KEY,
-      getPropertyOrDefaultValue(CHARSET_PROPERTY_KEY, "UTF-8"),
-      Validators.charsetValidator());
+    getPropertyOrDefaultValue(CHARSET_PROPERTY_KEY, "UTF-8"),
+    Validators.charsetValidator());
 
+  @Override
   public List<ConfigurationProperty> getProperties() {
     return ImmutableList.of(charsetProperty);
   }
@@ -68,12 +64,7 @@ public class ColdFusionConfigurationModel extends AbstractConfigurationModel {
 
   @Override
   public List<Tokenizer> doGetTokenizers() {
-    return ImmutableList.of(
-        new StringTokenizer("<span class=\"s\">", "</span>"),
-        new CDocTokenizer("<span class=\"cd\">", "</span>"),
-        new JavadocTokenizer("<span class=\"cppd\">", "</span>"),
-        new CppDocTokenizer("<span class=\"cppd\">", "</span>"),
-        new KeywordsTokenizer("<span class=\"k\">", "</span>", CFKeyword.keywordValues()));
+    return Collections.emptyList();
   }
 
   @VisibleForTesting

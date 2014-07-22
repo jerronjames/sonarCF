@@ -19,24 +19,12 @@
  */
 package org.sonar.coldfusion.lexer;
 
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.collect.ImmutableSet;
-import com.sonar.sslr.api.Token;
-import com.sonar.sslr.impl.Lexer;
-import org.sonar.channel.Channel;
-import org.sonar.channel.CodeReader;
-
-import java.util.List;
-import java.util.Set;
-
-import static com.sonar.sslr.impl.channel.RegexpChannelBuilder.regexp;
-import static org.sonar.coldfusion.api.CFTokenType.REGULAR_EXPRESSION_LITERAL;
 
 /**
  * Provides a heuristic to guess whether a forward slash starts a regular expression.
  * http://stackoverflow.com/questions/7936593/finding-regular-expression-literals-in-a-string-of-coldfusion-code
  */
-public class CFRegexpChannel extends Channel<Lexer> {
+public class CFRegexpChannel {
 
   private static final String NON_TERMINATOR = "[^\\r\\n\\u2028\\u2029]";
 
@@ -60,133 +48,13 @@ public class CFRegexpChannel extends Channel<Lexer> {
     // finished by a '/'
     + "\\/"
     + "\\p{javaJavaIdentifierPart}*+";
-/*
-* ColdFusion Specific RegExp
-*/
-  //public static final String CF_OPTIONS = 
-
-
-
-/*
-* End ColdFusion Specific RegExp
-*/
-
-  private final Channel<Lexer> delegate;
-
-  public CFRegexpChannel() {
-    this.delegate = regexp(REGULAR_EXPRESSION_LITERAL, REGULAR_EXPRESSION);
-  }
-
-  @Override
-  public boolean consume(CodeReader code, Lexer output) {
-    if (code.peek() == '/') {
-      Token lastToken = getLastToken(output);
-      if (lastToken == null || guessNextIsRegexp(lastToken.getValue())) {
-        return delegate.consume(code, output);
-      }
-    }
-    return false;
-  }
-
-  private static Token getLastToken(Lexer output) {
-    List<Token> tokens = output.getTokens();
-    return tokens.isEmpty() ? null : tokens.get(tokens.size() - 1);
-  }
-
-  private static final Set<String> WHOLE_TOKENS = ImmutableSet.of(
-      "break",
-      "case",
-      "continue",
-      "delete",
-      "do",
-      "else",
-      "finally",
-      "in",
-      "instanceof",
-      "return",
-      "throw",
-      "try",
-      "typeof",
-      "void",
-      // Binary operators which cannot be followed by a division operator:
-      // Match + but not ++. += is handled below.
-      "+",
-      // Match - but not --. -= is handled below.
-      "-",
-      // Match . but not a number with a trailing decimal.
-      ".",
-      // Match /, but not a regexp. /= is handled below
-      "/",
-      // Second binary operand cannot start a division.
-      ",",
-      // Ditto binary operand.
-      "*");
-
-  private static final String[] ENDS = new String[] {
-    // ! prefix operator operand cannot start with a division
-    "!",
-    // % second binary operand cannot start with a division
-    "%",
-    // &, && ditto binary operand
-    "&",
-    // ( expression cannot start with a division
-    "(",
-    // : property value, labelled statement, and operand of ?: cannot start with a division
-    ":",
-    // ; statement & for condition cannot start with division
-    ";",
-    // <, <<, << ditto binary operand
-    "<",
-    // !=, !==, %=, &&=, &=, *=, +=, -=, /=, <<=, <=, =, ==, ===, >=, >>=, >>>=, ^=, |=, ||=
-    // All are binary operands (assignment ops or comparisons) whose right
-    // operand cannot start with a division operator
-    "=",
-    // >, >>, >>> ditto binary operand
-    ">",
-    // ? expression in ?: cannot start with a division operator
-    "?",
-    // [ first array value & key expression cannot start with a division
-    "[",
-    // ^ ditto binary operand
-    "^",
-    // { statement in block and object property key cannot start with a division
-    "{",
-    // |, || ditto binary operand
-    "|",
-    // } PROBLEMATIC: could be an object literal divided or a block.
-    // More likely to be start of a statement after a block which cannot start with a /.
-    "}",
-    // ~ ditto binary operand
-    "~"
-  };
-
-  // The exclusion of ++ and -- from the above is also problematic.
-  // Both are prefix and postfix operators.
-  // Given that there is rarely a good reason to increment a regular expression
-  // and good reason to have a post-increment operator as the left operand of
-  // a division (x++ / y) this pattern treats ++ and -- as division preceders.
-
-  /**
-   * Returns true if a slash after given token starts a regular expression instead of div operator.
-   * <p>
-   * This fails on some valid but nonsensical ColdFusion programs like
-   * {@code x = ++/foo/i} which is quite different than
-   * {@code x++/foo/i}, but is not known to fail on any known useful programs.
-   * </p>
-   *
-   * @param preceder non-whitespace, non comment token preceding the slash
+  /*
+   * ColdFusion Specific RegExp
    */
-  @VisibleForTesting
-  static boolean guessNextIsRegexp(String preceder) {
-    if (WHOLE_TOKENS.contains(preceder)) {
-      return true;
-    }
-    for (String end : ENDS) {
-      if (preceder.endsWith(end)) {
-        return true;
-      }
-    }
-    return false;
-  }
+  // public static final String CF_OPTIONS =
+
+  /*
+   * End ColdFusion Specific RegExp
+   */
 
 }
