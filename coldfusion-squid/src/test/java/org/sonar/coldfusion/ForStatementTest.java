@@ -32,11 +32,11 @@ public class ForStatementTest {
   @Test
   public void ok() {
     assertThat(g.rule(CFGrammar.FOR_STATEMENT))
-       	.matches("for(int i = 0; i < 10; i++){}")
-       	.matches("for (int j=0; j > 15; j--){\n j++;}")
-       	.matches("for (idx in strProducts) {\n"
-   		+"WriteOutput(\"#idx# is #strProducts[idx]#<br>\");\n"
-		+"}")
-		.matches("for(local.current in arguments.struct){}");
+      .matches("for(int i = 0; i < 10; i++){}")
+      .matches("for (int j=0; j > 15; j--){\n j++;}")
+      .matches("for (idx in strProducts) {\n"
+        + "WriteOutput(\"#idx# is #strProducts[idx]#<br>\");\n"
+        + "}")
+      .matches("for(local.current in arguments.struct){}");
   }
 }

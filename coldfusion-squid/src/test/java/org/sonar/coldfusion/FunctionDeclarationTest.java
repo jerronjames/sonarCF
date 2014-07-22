@@ -32,10 +32,10 @@ public class FunctionDeclarationTest {
   @Test
   public void ok() {
     assertThat(g.rule(CFGrammar.FUNCTION_DECLARATION))
-       .matches("private void function myFunc(){}")
-       .matches("function myFunc(){\n}")
-       .matches("private object function myFunc(string test){}")
-       .matches("object function myFunc(){\nvar1 = 'hello';}")
-       .matches("public string function myFunc(string test){\nvar1 = 'hello';\nreturn var1 + test;}");
+      .matches("private void function myFunc(){}")
+      .matches("function myFunc(){\n}")
+      .matches("private object function myFunc(string test){}")
+      .matches("object function myFunc(){\nvar1 = 'hello';}")
+      .matches("public string function myFunc(string test){\nvar1 = 'hello';\nreturn var1 + test;}");
   }
 }

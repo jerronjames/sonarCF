@@ -32,9 +32,9 @@ public class ForInKeyTest {
   @Test
   public void ok() {
     assertThat(g.rule(CFGrammar.FOR_IN_KEY))
-        .matches("var bobbyGeneric")
-        .matches("var id.default")
-        .matches("var id.equals");
+      .matches("var bobbyGeneric")
+      .matches("var id.default")
+      .matches("var id.equals");
 
   }
 }

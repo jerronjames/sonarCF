@@ -28,18 +28,19 @@ import static org.sonar.sslr.tests.Assertions.assertThat;
 public class NewComponentExpressionTest {
 
   LexerlessGrammar g = CFGrammar.createGrammar();
-  
-  /* ANTLR grammar
-  newComponentExpression
-	  : NEW^ componentPath LEFTPAREN argumentList ')'!
-	  ;
+
+  /*
+   * ANTLR grammar
+   * newComponentExpression
+   * : NEW^ componentPath LEFTPAREN argumentList ')'!
+   * ;
    */
-  
+
   @Test
   public void realLife() {
     assertThat(g.rule(CFGrammar.NEW_COMPONENT_EXPRESSION))
-    	.matches("new identifier.identifier ( a = 1, b = 2 )")
-	    .matches("new \"componentPath\" (x = 1, y = 2)");
+      .matches("new identifier.identifier ( a = 1, b = 2 )")
+      .matches("new \"componentPath\" (x = 1, y = 2)");
   }
 
 }

@@ -27,16 +27,15 @@ import static org.sonar.sslr.tests.Assertions.assertThat;
 
 public class VariableTest {
 
-
   LexerlessGrammar g = CFGrammar.createGrammar();
 
   @Test
   public void ok() {
     assertThat(g.rule(CFGrammar.VARIABLE))
-        .matches("local.hello")
-        .matches("variables.x")
-        .matches("var y")
-        .matches("this.bad");
+      .matches("local.hello")
+      .matches("variables.x")
+      .matches("var y")
+      .matches("this.bad");
   }
 
 }

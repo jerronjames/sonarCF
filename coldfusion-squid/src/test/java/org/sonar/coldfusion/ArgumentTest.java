@@ -32,13 +32,13 @@ public class ArgumentTest {
   @Test
   public void ok() {
     assertThat(g.rule(CFGrammar.ARGUMENT))
-        .matches("( impliesExpression )")
-        //.matches("( identifier:impliesExpression )")
-        .matches("( identifier = impliesExpression )");
-	    
+      .matches("( impliesExpression )")
+      // .matches("( identifier:impliesExpression )")
+      .matches("( identifier = impliesExpression )");
+
     assertThat(g.rule(CFGrammar.ARGUMENT))
-        .notMatches("( , )")
-        .notMatches("( identifier = impliesExpression , )");
+      .notMatches("( , )")
+      .notMatches("( identifier = impliesExpression , )");
   }
 
 }

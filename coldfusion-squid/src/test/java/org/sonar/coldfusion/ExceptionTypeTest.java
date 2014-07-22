@@ -29,18 +29,18 @@ public class ExceptionTypeTest {
 
   LexerlessGrammar g = CFGrammar.createGrammar();
 
-/*
-exceptionType
-  : identifier ( DOT ( identifier | reservedWord ) )*
-  | STRING_LITERAL
-  ;
-*/
+  /*
+   * exceptionType
+   * : identifier ( DOT ( identifier | reservedWord ) )*
+   * | STRING_LITERAL
+   * ;
+   */
   @Test
   public void ok() {
     assertThat(g.rule(CFGrammar.EXCEPTION_TYPE))
-        .matches("any.anyany")
-        .matches("Any.contains")
-        .matches("exceptionType");
+      .matches("any.anyany")
+      .matches("Any.contains")
+      .matches("exceptionType");
   }
- 
+
 }

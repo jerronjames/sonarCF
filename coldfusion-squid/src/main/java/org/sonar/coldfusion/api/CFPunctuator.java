@@ -45,7 +45,7 @@ public enum CFPunctuator implements TokenType, GrammarRuleKey {
   MODEQUALS("%="),
   CONCATEQUALS("&="),
   COLON(":"),
-  NOTOP("!"), 
+  NOTOP("!"),
   SEMICOLON(";"),
   OROPERATOR("||"),
   ANDOPERATOR("&&"),

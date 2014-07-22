@@ -28,18 +28,19 @@ import static org.sonar.sslr.tests.Assertions.assertThat;
 public class EqualityOperator5Test {
 
   LexerlessGrammar g = CFGrammar.createGrammar();
-  
-  /* ANTLR grammar
-  equalityOperator5
-    :   LESS THAN OR EQUAL TO
-    |   GREATER THAN OR EQUAL TO
-    ;
+
+  /*
+   * ANTLR grammar
+   * equalityOperator5
+   * : LESS THAN OR EQUAL TO
+   * | GREATER THAN OR EQUAL TO
+   * ;
    */
   @Test
-  public void realLife() { 
+  public void realLife() {
     assertThat(g.rule(CFGrammar.EQUALITY_OPERATOR_5))
-    	.matches("less than or equal to")
-	    .matches("greater than or equal to");
+      .matches("less than or equal to")
+      .matches("greater than or equal to");
   }
 
 }

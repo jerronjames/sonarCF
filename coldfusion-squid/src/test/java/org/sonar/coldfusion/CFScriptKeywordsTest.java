@@ -29,54 +29,54 @@ public class CFScriptKeywordsTest {
 
   LexerlessGrammar g = CFGrammar.createGrammar();
 
-
   public static String getCfscriptKeyword() {
-	  return "if";
+    return "if";
   }
-  
-  /* ANTLR grammar
-   cfscriptKeywords
-	  : IF
-	  | ELSE
-	  | BREAK
-	  | CONTINUE
-	  | FUNCTION
-	  | RETURN
-	  | WHILE
-	  | DO
-	  | FOR
-	  | IN
-	  | TRY
-	  | CATCH
-	  | SWITCH
-	  | CASE
-	  | DEFAULT
-	  | IMPORT
-	  ;
+
+  /*
+   * ANTLR grammar
+   * cfscriptKeywords
+   * : IF
+   * | ELSE
+   * | BREAK
+   * | CONTINUE
+   * | FUNCTION
+   * | RETURN
+   * | WHILE
+   * | DO
+   * | FOR
+   * | IN
+   * | TRY
+   * | CATCH
+   * | SWITCH
+   * | CASE
+   * | DEFAULT
+   * | IMPORT
+   * ;
    */
   @Test
   public void ok() {
-	  assertThat(g.rule(CFGrammar.CF_SCRIPT_KEYWORDS))
-	      .matches("if")
-	      .matches("else")
-	      .matches("break")
-	      .matches("continue")
-	      .matches("function")
-	      .matches("return")
-	      .matches("while")
-	      .matches("do")
-	      .matches("for")
-	      .matches("in")
-	      .matches("try")
-	      .matches("catch")
-	      .matches("switch")
-	      .matches("case")
-	      .matches("default")
-	      .matches("import");
+    assertThat(g.rule(CFGrammar.CF_SCRIPT_KEYWORDS))
+      .matches("if")
+      .matches("else")
+      .matches("break")
+      .matches("continue")
+      .matches("function")
+      .matches("return")
+      .matches("while")
+      .matches("do")
+      .matches("for")
+      .matches("in")
+      .matches("try")
+      .matches("catch")
+      .matches("switch")
+      .matches("case")
+      .matches("default")
+      .matches("import");
 
-	  assertThat(g.rule(CFGrammar.CF_SCRIPT_KEYWORDS))
-	      .notMatches("random")
-	      .notMatches("words");
+    assertThat(g.rule(CFGrammar.CF_SCRIPT_KEYWORDS))
+      .notMatches("random")
+      .notMatches("words");
 
   }
 

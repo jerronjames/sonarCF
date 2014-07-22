@@ -32,13 +32,13 @@ public class ConstantExpressionTest {
   @Test
   public void ok() {
     assertThat(g.rule(CFGrammar.CONSTANT_EXPRESSION))
-        .matches("(42)")
-        .matches("-42")
-        .matches("-42.42")
-        .matches("42")
-        .matches("42.42")
-        .matches("'forty two'")
-        .matches("true")
-        .matches("null");
+      .matches("(42)")
+      .matches("-42")
+      .matches("-42.42")
+      .matches("42")
+      .matches("42.42")
+      .matches("'forty two'")
+      .matches("true")
+      .matches("null");
   }
 }

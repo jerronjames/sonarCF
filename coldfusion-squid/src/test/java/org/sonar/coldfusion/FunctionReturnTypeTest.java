@@ -27,7 +27,7 @@ import static org.sonar.sslr.tests.Assertions.assertThat;
 
 public class FunctionReturnTypeTest {
 
-/*
+  /*
 
 */
 
@@ -36,11 +36,10 @@ public class FunctionReturnTypeTest {
   @Test
   public void ok() {
     assertThat(g.rule(CFGrammar.FUNCTION_RETURN_TYPE))
-        .matches("42")
-        .matches("string")
-        .matches("local.stricter")
-        .matches("boolean")
-        ;
+      .matches("42")
+      .matches("string")
+      .matches("local.stricter")
+      .matches("boolean");
 
   }
 }

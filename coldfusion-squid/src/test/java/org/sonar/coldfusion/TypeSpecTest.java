@@ -27,25 +27,25 @@ import static org.sonar.sslr.tests.Assertions.assertThat;
 
 public class TypeSpecTest {
 
-/*
-typeSpec
-  : identifier ( DOT ( identifier | reservedWord ) )*
-  | STRING_LITERAL
-  ;
-*/
+  /*
+   * typeSpec
+   * : identifier ( DOT ( identifier | reservedWord ) )*
+   * | STRING_LITERAL
+   * ;
+   */
 
   LexerlessGrammar g = CFGrammar.createGrammar();
 
   @Test
   public void ok() {
     assertThat(g.rule(CFGrammar.TYPE_SPEC))
-        .matches("var")
-        .matches("private.var")
-        .matches("var.contains")
-        .matches("tree.leaves")
-        .matches("\"literal string\"")
-        .matches("true")
-        .matches("42");
+      .matches("var")
+      .matches("private.var")
+      .matches("var.contains")
+      .matches("tree.leaves")
+      .matches("\"literal string\"")
+      .matches("true")
+      .matches("42");
 
   }
 }

@@ -28,22 +28,22 @@ import static org.sonar.sslr.tests.Assertions.assertThat;
 public class CfmlFunctionTest {
 
   LexerlessGrammar g = CFGrammar.createGrammar();
-  
+
   @Test
   public void ok() {
-	  assertThat(g.rule(CFGrammar.CFML_FUNCTION))
-	      .matches("location")
-	      .matches("savecontent")
-	      .matches("http")
-	      .matches("file")
-	      .matches("directory")
-	      .matches("loop")
-	      .matches("setting")
-	      .matches("query");
-	  
-	  assertThat(g.rule(CFGrammar.CFML_FUNCTION))
-	      .notMatches("random")
-	      .notMatches("words");
+    assertThat(g.rule(CFGrammar.CFML_FUNCTION))
+      .matches("location")
+      .matches("savecontent")
+      .matches("http")
+      .matches("file")
+      .matches("directory")
+      .matches("loop")
+      .matches("setting")
+      .matches("query");
+
+    assertThat(g.rule(CFGrammar.CFML_FUNCTION))
+      .notMatches("random")
+      .notMatches("words");
 
   }
 

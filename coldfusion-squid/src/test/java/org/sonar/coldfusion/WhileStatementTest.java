@@ -32,9 +32,9 @@ public class WhileStatementTest {
   @Test
   public void ok() {
     assertThat(g.rule(CFGrammar.WHILE_STATEMENT))
-       .matches("while(true){}")
-       .matches("while(x gte 10) {x++;}\n")
-       .matches("while(y lt x){local.hello = 1; variables.var1 = hello; break;}\n");
+      .matches("while(true){}")
+      .matches("while(x gte 10) {x++;}\n")
+      .matches("while(y lt x){local.hello = 1; variables.var1 = hello; break;}\n");
   }
 
 }

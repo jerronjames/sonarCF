@@ -29,39 +29,39 @@ public class StatementTest {
 
   LexerlessGrammar g = CFGrammar.createGrammar();
 
-/*
- :   tryCatchStatement
-  |   ifStatement
-  |   whileStatement
-  |   doWhileStatement
-  |   forStatement
-  |   switchStatement
-  |   CONTINUE SEMICOLON!
-  |   BREAK SEMICOLON!
-  |   returnStatement
-  |   tagOperatorStatement
-  |   compoundStatement 
-  |   localAssignmentExpression SEMICOLON!
-//  |   localAssignmentExpression
-  |   SEMICOLON! // empty statement
-  ;
-*/
+  /*
+   * : tryCatchStatement
+   * | ifStatement
+   * | whileStatement
+   * | doWhileStatement
+   * | forStatement
+   * | switchStatement
+   * | CONTINUE SEMICOLON!
+   * | BREAK SEMICOLON!
+   * | returnStatement
+   * | tagOperatorStatement
+   * | compoundStatement
+   * | localAssignmentExpression SEMICOLON!
+   * // | localAssignmentExpression
+   * | SEMICOLON! // empty statement
+   * ;
+   */
   @Test
   public void ok() {
     assertThat(g.rule(CFGrammar.STATEMENT))
-        .matches("try{} catch('nuts'){} finally{}")
-        .matches("if(true){}")
-        .matches("while(true){}")
-        .matches("do{}while(true);")
-        .matches("for(int i = 0; i < 10; i++){}")
-        .matches("switch () {}")
-        .matches("continue;")
-        .matches("break;")
-        .matches("return true;")
-        .matches("throw(x = 'nuts');")//tagOperatorStatement
-        .matches("{return;}")//compound statement
-        .matches("a != 4 ? b = 2 : c = 5;")//localAssignmentExpression semicolon stmt
-        .matches(";");//empty statement
+      .matches("try{} catch('nuts'){} finally{}")
+      .matches("if(true){}")
+      .matches("while(true){}")
+      .matches("do{}while(true);")
+      .matches("for(int i = 0; i < 10; i++){}")
+      .matches("switch () {}")
+      .matches("continue;")
+      .matches("break;")
+      .matches("return true;")
+      .matches("throw(x = 'nuts');")// tagOperatorStatement
+      .matches("{return;}")// compound statement
+      .matches("a != 4 ? b = 2 : c = 5;")// localAssignmentExpression semicolon stmt
+      .matches(";");// empty statement
   }
- 
+
 }

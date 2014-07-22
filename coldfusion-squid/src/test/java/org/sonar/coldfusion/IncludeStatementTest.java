@@ -28,15 +28,16 @@ import static org.sonar.sslr.tests.Assertions.assertThat;
 public class IncludeStatementTest {
 
   LexerlessGrammar g = CFGrammar.createGrammar();
-  
-  /* ANTLR grammar
-	includeStatement
-	  : INCLUDE impliesExpression* SEMICOLON   
-	  ;
+
+  /*
+   * ANTLR grammar
+   * includeStatement
+   * : INCLUDE impliesExpression* SEMICOLON
+   * ;
    */
   @Test
   public void realLife() {
     assertThat(g.rule(CFGrammar.INCLUDE_STATEMENT))
-    	.matches("include \"template.cfm\";");
+      .matches("include \"template.cfm\";");
   }
 }

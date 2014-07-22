@@ -27,26 +27,25 @@ import static org.sonar.sslr.tests.Assertions.assertThat;
 
 public class IfElseStatementTest {
 
-
   LexerlessGrammar g = CFGrammar.createGrammar();
 
   @Test
   public void ok() {
     assertThat(g.rule(CFGrammar.IF_STATEMENT))
-       .matches("if () {}")
-       .matches("if (x lt y){ cough = true; }")
-       .matches("if (x gte y) {\n}\nelse{\n}")
-       .matches("if( isObject(arguments.entity) ){"
-      		+	"local.isAuditable = isAuditable(arguments.entity);"
-      		+	"local.columnDetails = getColumnDetails(arguments.entity);"
-      		+"}else{"
-      		+"	local.isAuditable = isAuditable(arguments.oldEntity);"
-      		+"	local.columnDetails = getColumnDetails(arguments.oldEntity);"
-      		+"}")
-        .matches("if () {} else {}")
-        .matches("if () {} else if () {}")
-        .matches("if(not isSimpleValue(arguments.struct[local.current].formatFunction)){}")
-        .matches("if( local.auditable != 'always' || local.auditable != \"optional\" ){return false;}");
+      .matches("if () {}")
+      .matches("if (x lt y){ cough = true; }")
+      .matches("if (x gte y) {\n}\nelse{\n}")
+      .matches("if( isObject(arguments.entity) ){"
+        + "local.isAuditable = isAuditable(arguments.entity);"
+        + "local.columnDetails = getColumnDetails(arguments.entity);"
+        + "}else{"
+        + "	local.isAuditable = isAuditable(arguments.oldEntity);"
+        + "	local.columnDetails = getColumnDetails(arguments.oldEntity);"
+        + "}")
+      .matches("if () {} else {}")
+      .matches("if () {} else if () {}")
+      .matches("if(not isSimpleValue(arguments.struct[local.current].formatFunction)){}")
+      .matches("if( local.auditable != 'always' || local.auditable != \"optional\" ){return false;}");
   }
 
 }

@@ -31,14 +31,14 @@ public class ComplexityVisitor extends SquidAstVisitor<LexerlessGrammar> {
   @Override
   public void init() {
     subscribeTo(
-        CFGrammar.FUNCTION_DECLARATION,
-        CFGrammar.COMPOUND_STATEMENT,
-        // Branching nodes
-        CFGrammar.STATEMENT,
-        // Expressions
-        CFPunctuator.ANDOPERATOR,
-        CFPunctuator.OROPERATOR,
-        CFPunctuator.QUESTIONMARK);
+      CFGrammar.FUNCTION_DECLARATION,
+      CFGrammar.COMPOUND_STATEMENT,
+      // Branching nodes
+      CFGrammar.STATEMENT,
+      // Expressions
+      CFPunctuator.ANDOPERATOR,
+      CFPunctuator.OROPERATOR,
+      CFPunctuator.QUESTIONMARK);
   }
 
   @Override

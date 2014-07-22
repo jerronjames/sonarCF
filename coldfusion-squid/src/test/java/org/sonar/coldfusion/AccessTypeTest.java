@@ -32,10 +32,10 @@ public class AccessTypeTest {
   @Test
   public void ok() {
     assertThat(g.rule(CFGrammar.ACCESS_TYPE))
-        .matches("private")
-        .matches("package")
-        .matches("public")
-        .matches("remote");
+      .matches("private")
+      .matches("package")
+      .matches("public")
+      .matches("remote");
   }
- 
+
 }

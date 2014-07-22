@@ -28,50 +28,51 @@ import static org.sonar.sslr.tests.Assertions.assertThat;
 public class EqualityOperator1Test {
 
   LexerlessGrammar g = CFGrammar.createGrammar();
-  
-  /* ANTLR grammar
-    equalityOperator1
-	    : 	IS -> ^(EQ)
-	    |   EQUALSEQUALSOP -> ^(EQ)
-	    |   LT -> ^(LT)
-	    |   '<' -> ^(LT)
-	    |   LTE -> ^(LTE)
-	    |   '<=' -> ^(LTE)
-	    |   LE -> ^(LTE)
-	    |   GT -> ^(GT)
-	    |   '>' -> ^(GT)
-	    |   GTE -> ^(GTE)
-	    |   '>=' -> ^(GTE)
-	    |   GE -> ^(GTE)
-	    |   EQ -> ^(EQ)
-	    |   NEQ -> ^(NEQ)
-	    |   '!=' -> ^(NEQ)
-	    |   EQUAL -> ^(EQ)
-	    |   EQUALS -> ^(EQ)
-	    |   CONTAINS -> ^(CONTAINS)
-	    ;
+
+  /*
+   * ANTLR grammar
+   * equalityOperator1
+   * : IS -> ^(EQ)
+   * | EQUALSEQUALSOP -> ^(EQ)
+   * | LT -> ^(LT)
+   * | '<' -> ^(LT)
+   * | LTE -> ^(LTE)
+   * | '<=' -> ^(LTE)
+   * | LE -> ^(LTE)
+   * | GT -> ^(GT)
+   * | '>' -> ^(GT)
+   * | GTE -> ^(GTE)
+   * | '>=' -> ^(GTE)
+   * | GE -> ^(GTE)
+   * | EQ -> ^(EQ)
+   * | NEQ -> ^(NEQ)
+   * | '!=' -> ^(NEQ)
+   * | EQUAL -> ^(EQ)
+   * | EQUALS -> ^(EQ)
+   * | CONTAINS -> ^(CONTAINS)
+   * ;
    */
   @Test
-  public void realLife() { 
+  public void realLife() {
     assertThat(g.rule(CFGrammar.EQUALITY_OPERATOR_1))
-    	.matches("is")
-    	.matches("==")
-    	.matches("lt")
-    	.matches("<")
-    	.matches("lte")
-    	.matches("<=")
-    	.matches("le")
-    	.matches("gt")
-    	.matches(">")
-    	.matches("gte")
-    	.matches(">=")
-    	.matches("ge")
-    	.matches("eq")
-    	.matches("neq")
-    	.matches("!=")
-    	.matches("equal")
-    	.matches("equals")
-    	.matches("contains");
+      .matches("is")
+      .matches("==")
+      .matches("lt")
+      .matches("<")
+      .matches("lte")
+      .matches("<=")
+      .matches("le")
+      .matches("gt")
+      .matches(">")
+      .matches("gte")
+      .matches(">=")
+      .matches("ge")
+      .matches("eq")
+      .matches("neq")
+      .matches("!=")
+      .matches("equal")
+      .matches("equals")
+      .matches("contains");
   }
 
 }

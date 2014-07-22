@@ -27,16 +27,15 @@ import static org.sonar.sslr.tests.Assertions.assertThat;
 
 public class ImplicitArrayTest {
 
-
   LexerlessGrammar g = CFGrammar.createGrammar();
 
   @Test
   public void ok() {
     assertThat(g.rule(CFGrammar.IMPLICIT_ARRAY))
-        .matches("[]")
-        .matches("[\"a\"]")
-        .matches("[a, b]")
-        .matches("[a = 3, b = \"three\"]");
+      .matches("[]")
+      .matches("[\"a\"]")
+      .matches("[a, b]")
+      .matches("[a = 3, b = \"three\"]");
   }
 
 }

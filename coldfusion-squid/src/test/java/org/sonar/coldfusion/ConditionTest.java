@@ -29,16 +29,16 @@ public class ConditionTest {
 
   LexerlessGrammar g = CFGrammar.createGrammar();
 
-/*
-condition
-  : LEFTPAREN! localAssignmentExpression RIGHTPAREN!
-  ;
-*/
+  /*
+   * condition
+   * : LEFTPAREN! localAssignmentExpression RIGHTPAREN!
+   * ;
+   */
   @Test
   public void ok() {
     assertThat(g.rule(CFGrammar.CONDITION))
-        .matches("(a is true)")
-        .matches("(b gte 11 || a gt 2)");
+      .matches("(a is true)")
+      .matches("(b gte 11 || a gt 2)");
   }
- 
+
 }

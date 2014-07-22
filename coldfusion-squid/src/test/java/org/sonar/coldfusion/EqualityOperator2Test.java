@@ -28,21 +28,22 @@ import static org.sonar.sslr.tests.Assertions.assertThat;
 public class EqualityOperator2Test {
 
   LexerlessGrammar g = CFGrammar.createGrammar();
-  
-  /* ANTLR grammar
-    equalityOperator2
-	    :   LESS THAN -> ^(LT)
-	    |   GREATER THAN -> ^(GT)
-	    |   NOT EQUAL  -> ^(NEQ)
-	    |   IS NOT -> ^(NEQ)
-	    ;
+
+  /*
+   * ANTLR grammar
+   * equalityOperator2
+   * : LESS THAN -> ^(LT)
+   * | GREATER THAN -> ^(GT)
+   * | NOT EQUAL -> ^(NEQ)
+   * | IS NOT -> ^(NEQ)
+   * ;
    */
   @Test
   public void realLife() {
     assertThat(g.rule(CFGrammar.EQUALITY_OPERATOR_2))
-    	.matches("less than")
-    	.matches("greater than")
-    	.matches("not equal")
-    	.matches("is not");
+      .matches("less than")
+      .matches("greater than")
+      .matches("not equal")
+      .matches("is not");
   }
 }

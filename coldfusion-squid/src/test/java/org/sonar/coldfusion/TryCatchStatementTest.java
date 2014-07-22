@@ -32,21 +32,21 @@ public class TryCatchStatementTest {
   @Test
   public void ok() {
     assertThat(g.rule(CFGrammar.TRY_CATCH_STATEMENT))
-        .matches("try {} catch (test) {} finally {}")
-        .matches("try{ \n"
-        +"              local.auditTrailRecord = EntityGet(\"AuditTrailRecord\",local.tranID); \n"
-        +"          } catch(\"EntityGet.NoRecord\") { \n"
-        +"              local.auditTrailRecord = entityNew(\"AuditTrailRecord\", { \n"
-        +"                      ID:local.tranID, \n"
-        +"                      module:local.MCModule, \n"
-        +"                      Component:local.MCComponent, \n"
-        +"                      Action:#actionPrefix#, \n"
-        +"                      EntityName: local.metaData['mc:parentEntity']?: local.entityName, \n"
-        +"                      EntityID:local.entityID, \n"
-        +"                      UserID:getuserID(), \n"
-        +"                      ChangeReason:getChangeReason(), \n"
-        +"                      DateCreated:now() \n"
-        +"                  }); }\n");
+      .matches("try {} catch (test) {} finally {}")
+      .matches("try{ \n"
+        + "              local.auditTrailRecord = EntityGet(\"AuditTrailRecord\",local.tranID); \n"
+        + "          } catch(\"EntityGet.NoRecord\") { \n"
+        + "              local.auditTrailRecord = entityNew(\"AuditTrailRecord\", { \n"
+        + "                      ID:local.tranID, \n"
+        + "                      module:local.MCModule, \n"
+        + "                      Component:local.MCComponent, \n"
+        + "                      Action:#actionPrefix#, \n"
+        + "                      EntityName: local.metaData['mc:parentEntity']?: local.entityName, \n"
+        + "                      EntityID:local.entityID, \n"
+        + "                      UserID:getuserID(), \n"
+        + "                      ChangeReason:getChangeReason(), \n"
+        + "                      DateCreated:now() \n"
+        + "                  }); }\n");
 
-    }
+  }
 }

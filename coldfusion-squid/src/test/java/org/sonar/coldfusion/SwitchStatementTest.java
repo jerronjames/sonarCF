@@ -32,17 +32,17 @@ public class SwitchStatementTest {
   @Test
   public void ok() {
     assertThat(g.rule(CFGrammar.SWITCH_STATEMENT))
-        .matches("switch () {}")
-        .matches("switch(rejectCode[applicant]) { \n"
-            +"    case \"score\": \n"
-            +"        WriteOutput(\"Reject reason: Score was too low.<br>\"); \n"
-            +"        break; \n"
-            +"    case \"late\": \n"
-            +"        WriteOutput(\"Reject reason: Application was late.<br>\"); \n"
-            +"        break; \n"
-            +"    default: \n"
-            +"        WriteOutput(\"Rejected with invalid reason code.<br>\"); \n"
-            +"} //end switch");
+      .matches("switch () {}")
+      .matches("switch(rejectCode[applicant]) { \n"
+        + "    case \"score\": \n"
+        + "        WriteOutput(\"Reject reason: Score was too low.<br>\"); \n"
+        + "        break; \n"
+        + "    case \"late\": \n"
+        + "        WriteOutput(\"Reject reason: Application was late.<br>\"); \n"
+        + "        break; \n"
+        + "    default: \n"
+        + "        WriteOutput(\"Rejected with invalid reason code.<br>\"); \n"
+        + "} //end switch");
 
-    }
+  }
 }

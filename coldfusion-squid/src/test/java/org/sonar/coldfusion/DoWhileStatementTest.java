@@ -32,8 +32,8 @@ public class DoWhileStatementTest {
   @Test
   public void ok() {
     assertThat(g.rule(CFGrammar.DO_WHILE_STATEMENT))
-       .matches("do{}while(true);")
-       .matches("do\n{ x++; } while(x gte 10);\n")
-       .matches("do\n{local.hello = 1; variables.var1 = hello; break;}while(y lt x);\n");
+      .matches("do{}while(true);")
+      .matches("do\n{ x++; } while(x gte 10);\n")
+      .matches("do\n{local.hello = 1; variables.var1 = hello; break;}while(y lt x);\n");
   }
 }

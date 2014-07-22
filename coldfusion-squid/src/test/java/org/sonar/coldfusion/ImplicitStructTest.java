@@ -27,18 +27,17 @@ import static org.sonar.sslr.tests.Assertions.assertThat;
 
 public class ImplicitStructTest {
 
-
   LexerlessGrammar g = CFGrammar.createGrammar();
 
   @Test
   public void ok() {
     assertThat(g.rule(CFGrammar.IMPLICIT_STRUCT))
-    	.matches("{'blah':var1}")
-    	.matches("{'newValue' : local.newStruct[element]}")
-    	.matches("{var1 : var2, var3 : var4}")
-    	.matches("{'var1':var2, var3:var4}")
-    	.matches("{var1:var2, 'var3':var4}")
-        .matches("{'newValue' : local.newStruct[element], 'oldValue': local.oldStruct[element]}");
+      .matches("{'blah':var1}")
+      .matches("{'newValue' : local.newStruct[element]}")
+      .matches("{var1 : var2, var3 : var4}")
+      .matches("{'var1':var2, var3:var4}")
+      .matches("{var1:var2, 'var3':var4}")
+      .matches("{'newValue' : local.newStruct[element], 'oldValue': local.oldStruct[element]}");
   }
 
 }

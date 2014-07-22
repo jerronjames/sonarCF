@@ -27,28 +27,28 @@ import static org.sonar.sslr.tests.Assertions.assertThat;
 
 public class ReturnStatementTest {
 
-/*
-returnStatement
-  : RETURN SEMICOLON!
-  | RETURN assignmentExpression SEMICOLON!
-  ;
-*/
+  /*
+   * returnStatement
+   * : RETURN SEMICOLON!
+   * | RETURN assignmentExpression SEMICOLON!
+   * ;
+   */
   LexerlessGrammar g = CFGrammar.createGrammar();
 
   @Test
   public void ok() {
     assertThat(g.rule(CFGrammar.RETURN_STATEMENT))
-        .matches("return;")
-        .matches("return false;")
-        .matches("return '';")
-        .matches("return 'stuff';")
-        .matches("return 42;")
-        .matches("return request.changeReason;")
-        .matches("return local.thisThing;")
-        .matches("return prefs.getStuff();")
-        .matches("return arguments.functionToUse(args.one, args.two);")
-        .matches("return key;")
-        .matches("return structArr(ids)[1];")
-        .matches("return request['sayYes'];");
+      .matches("return;")
+      .matches("return false;")
+      .matches("return '';")
+      .matches("return 'stuff';")
+      .matches("return 42;")
+      .matches("return request.changeReason;")
+      .matches("return local.thisThing;")
+      .matches("return prefs.getStuff();")
+      .matches("return arguments.functionToUse(args.one, args.two);")
+      .matches("return key;")
+      .matches("return structArr(ids)[1];")
+      .matches("return request['sayYes'];");
   }
 }

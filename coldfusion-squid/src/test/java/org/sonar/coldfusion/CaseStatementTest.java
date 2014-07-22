@@ -27,22 +27,21 @@ import static org.sonar.sslr.tests.Assertions.assertThat;
 
 public class CaseStatementTest {
 
-/*
-caseStatement
-  : ( CASE^ constantExpression COLON ( statement )* ) 
-    | 
-    ( DEFAULT^ COLON ( statement )* ) 
-  ;
-*/
-
+  /*
+   * caseStatement
+   * : ( CASE^ constantExpression COLON ( statement )* )
+   * |
+   * ( DEFAULT^ COLON ( statement )* )
+   * ;
+   */
 
   LexerlessGrammar g = CFGrammar.createGrammar();
 
   @Test
   public void ok() {
     assertThat(g.rule(CFGrammar.CASE_STATEMENT))
-        .matches("case 1: break;")
-        .matches("default : return;");
+      .matches("case 1: break;")
+      .matches("default : return;");
 
   }
 }

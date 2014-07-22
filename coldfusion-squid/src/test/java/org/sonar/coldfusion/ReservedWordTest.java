@@ -28,63 +28,63 @@ import static org.sonar.sslr.tests.Assertions.assertThat;
 public class ReservedWordTest {
 
   LexerlessGrammar g = CFGrammar.createGrammar();
-  
-  /* ANTLR grammar
-	reservedWord
-	  : CONTAINS | IS | EQUAL 
-	  | EQ | NEQ | GT | LT | GTE
-	  | GE | LTE | LE | NOT | AND
-	  | OR | XOR | EQV | IMP | MOD
-	  | NULL | EQUALS
-	  | cfscriptKeywords 
-	  ;
+
+  /*
+   * ANTLR grammar
+   * reservedWord
+   * : CONTAINS | IS | EQUAL
+   * | EQ | NEQ | GT | LT | GTE
+   * | GE | LTE | LE | NOT | AND
+   * | OR | XOR | EQV | IMP | MOD
+   * | NULL | EQUALS
+   * | cfscriptKeywords
+   * ;
    */
   @Test
   public void realLife() {
     assertThat(g.rule(CFGrammar.RESERVED_WORD))
-	    .matches("contains")
-	    .matches("is")
-	    .matches("equal")
-	    .matches("eq")
-	    .matches("neq")
-	    .matches("gt")
-	    .matches("lt")
-	    .matches("gte")
-	    .matches("ge")
-	    .matches("lte")
-	    .matches("le")
-	    .matches("not")
-	    .matches("and")
-	    .matches("or")
-	    .matches("xor")
-	    .matches("eqv")
-	    .matches("imp")
-	    .matches("mod")
-	    .matches("null")
-	    .matches("equals")
-	    
-	    
-	    //CFScriptKeywords
-	    .matches("if")
-	    .matches("else")
-	    .matches("break")
-	    .matches("continue")
-	    .matches("function")
-	    .matches("return")
-	    .matches("while")
-	    .matches("do")
-	    .matches("for")
-	    .matches("in")
-	    .matches("try")
-	    .matches("catch")
-	    .matches("switch")
-	    .matches("case")
-	    .matches("default")
-	    .matches("import");
-    
+      .matches("contains")
+      .matches("is")
+      .matches("equal")
+      .matches("eq")
+      .matches("neq")
+      .matches("gt")
+      .matches("lt")
+      .matches("gte")
+      .matches("ge")
+      .matches("lte")
+      .matches("le")
+      .matches("not")
+      .matches("and")
+      .matches("or")
+      .matches("xor")
+      .matches("eqv")
+      .matches("imp")
+      .matches("mod")
+      .matches("null")
+      .matches("equals")
+
+      // CFScriptKeywords
+      .matches("if")
+      .matches("else")
+      .matches("break")
+      .matches("continue")
+      .matches("function")
+      .matches("return")
+      .matches("while")
+      .matches("do")
+      .matches("for")
+      .matches("in")
+      .matches("try")
+      .matches("catch")
+      .matches("switch")
+      .matches("case")
+      .matches("default")
+      .matches("import");
+
     assertThat(g.rule(CFGrammar.CF_SCRIPT_KEYWORDS))
-	    .notMatches("random")
-	    .notMatches("words");
+      .notMatches("random")
+      .notMatches("words");
   }
 
 }

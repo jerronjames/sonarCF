@@ -32,7 +32,7 @@ public class CFComponentTest {
   @Test
   public void cfComponentTag() {
     // assertThat(g.rule(CFGrammar.ROOT))
-    //  .matches("<cfcomponent local.key = 13>\n"
-    //   +"</cfcompoent>");
+    // .matches("<cfcomponent local.key = 13>\n"
+    // +"</cfcompoent>");
   }
 }

@@ -32,14 +32,14 @@ public class ComponentDeclarationTest {
   @Test
   public void ok() {
     assertThat(g.rule(CFGrammar.COMPONENT_DECLARATION))
-       .matches("component { }")
-       //.matches("component { variables.var1 }")
-       .matches("component hint = 'words' { doSomething(); }")
-       .matches("component hint='words' output='true' { doSomething(); }")
-       .matches("component attributeName='attributeValue' { doSomething(); }")
-       .matches("/* comment */ component { doSomething(); }")
-       .matches(" /* comment */ component hint = words { doSomething(); }")
-       .matches("/* comment */ component attributeName='attributeValue' { doSomething(); }");
+      .matches("component { }")
+      // .matches("component { variables.var1 }")
+      .matches("component hint = 'words' { doSomething(); }")
+      .matches("component hint='words' output='true' { doSomething(); }")
+      .matches("component attributeName='attributeValue' { doSomething(); }")
+      .matches("/* comment */ component { doSomething(); }")
+      .matches(" /* comment */ component hint = words { doSomething(); }")
+      .matches("/* comment */ component attributeName='attributeValue' { doSomething(); }");
 
   }
 

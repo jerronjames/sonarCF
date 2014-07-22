@@ -32,7 +32,7 @@ public class FinallyStatementTest {
   @Test
   public void ok() {
     assertThat(g.rule(CFGrammar.FINALLY_STATEMENT))
-        .matches("finally {}");
+      .matches("finally {}");
 
   }
 }

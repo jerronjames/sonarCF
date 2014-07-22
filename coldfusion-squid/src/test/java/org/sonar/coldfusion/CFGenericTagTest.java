@@ -31,30 +31,30 @@ public class CFGenericTagTest {
 
   // @Test
   // public void singleTag() {
-  //   assertThat(g.rule(CFGrammar.ROOT))
-  //     .matches("<cftag/>")                 
-  //     .matches("<tag ignore = \"true\"/>");
+  // assertThat(g.rule(CFGrammar.ROOT))
+  // .matches("<cftag/>")
+  // .matches("<tag ignore = \"true\"/>");
   // }
 
   // @Test
   // public void startAndEndTag() {
-  //   assertThat(g.rule(CFGrammar.ROOT))
-  //     .matches("<cftag></cftag>")
-  //     .matches("<cftag>\nanalyze = true;\n</cftag>");  
+  // assertThat(g.rule(CFGrammar.ROOT))
+  // .matches("<cftag></cftag>")
+  // .matches("<cftag>\nanalyze = true;\n</cftag>");
   // }
 
   @Test
   public void allTag() {
     assertThat(g.rule(CFGrammar.ROOT))
-      //.matches("<cftag>this is a tag</cftag>")
+      // .matches("<cftag>this is a tag</cftag>")
       .matches("<cftag analyze = false />")
       .matches("<cfset caller.addition = attributes.first + attributes.second />")
       .matches("<cfexit method=\"exitTag\" />")
       .matches("<cf_addition first=\"1\" second=\"2\">")
       .matches("<cftag analyze = false />\n"
-      +"    <cfset caller.addition = attributes.first + attributes.second />\n"
-      +"    <cfscript>\n"
-      +"    component {}\n"
-      +"   </cfscript>");
+        + "    <cfset caller.addition = attributes.first + attributes.second />\n"
+        + "    <cfscript>\n"
+        + "    component {}\n"
+        + "   </cfscript>");
   }
 }

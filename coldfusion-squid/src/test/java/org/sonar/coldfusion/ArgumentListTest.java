@@ -32,17 +32,17 @@ public class ArgumentListTest {
   @Test
   public void ok() {
     assertThat(g.rule(CFGrammar.ARGUMENT_LIST))
-        .matches("( impliesExpression )");
-        /*
-        .matches("( identifier : impliesExpression )")
-        .matches("( identifier = impliesExpression )")
-
-	    .matches("( identifier : impliesExpression, identifier = impliesExpression )")
-	    .matches("( identifier = impliesExpression, identifier : impliesExpression )");
-	    */
+      .matches("( impliesExpression )");
+    /*
+     * .matches("( identifier : impliesExpression )")
+     * .matches("( identifier = impliesExpression )")
+     * 
+     * .matches("( identifier : impliesExpression, identifier = impliesExpression )")
+     * .matches("( identifier = impliesExpression, identifier : impliesExpression )");
+     */
     assertThat(g.rule(CFGrammar.ARGUMENT_LIST))
-    	.notMatches("( , )")
-        .notMatches("( identifier = impliesExpression , )");
+      .notMatches("( , )")
+      .notMatches("( identifier = impliesExpression , )");
   }
 
 }

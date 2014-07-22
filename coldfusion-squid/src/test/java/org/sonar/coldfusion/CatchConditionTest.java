@@ -1,4 +1,3 @@
-
 /*
  * SonarQube ColdFusion Plugin
  * Copyright (C) 2014 SonarSource and MC
@@ -33,8 +32,8 @@ public class CatchConditionTest {
   @Test
   public void ok() {
     assertThat(g.rule(CFGrammar.CATCH_CONDITION))
-        .matches("catch (Exception e) {}")
-        .notMatches("catch {}");
+      .matches("catch (Exception e) {}")
+      .notMatches("catch {}");
 
   }
 }

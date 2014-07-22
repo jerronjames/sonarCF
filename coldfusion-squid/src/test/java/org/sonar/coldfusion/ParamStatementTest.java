@@ -32,11 +32,10 @@ public class ParamStatementTest {
   @Test
   public void ok() {
     assertThat(g.rule(CFGrammar.PARAM_STATEMENT))
-    	.matches("param identifier = impliesExpression");
-        
-	    
+      .matches("param identifier = impliesExpression");
+
     assertThat(g.rule(CFGrammar.PARAM_STATEMENT))
-    	.notMatches(" ");
+      .notMatches(" ");
   }
 
 }

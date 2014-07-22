@@ -28,20 +28,21 @@ import static org.sonar.sslr.tests.Assertions.assertThat;
 public class ComponentPathTest {
 
   LexerlessGrammar g = CFGrammar.createGrammar();
-  
-  /* ANTLR grammar
-   componentPath
-	  : STRING_LITERAL
-	  | identifier ( DOT identifier )*
-	  ;
+
+  /*
+   * ANTLR grammar
+   * componentPath
+   * : STRING_LITERAL
+   * | identifier ( DOT identifier )*
+   * ;
    */
-  
+
   @Test
   public void realLife() {
     assertThat(g.rule(CFGrammar.COMPONENT_PATH))
-    	.matches("\"string literal\"")
-	    .matches("identifier")
-	    .matches("identifier.identifier");
+      .matches("\"string literal\"")
+      .matches("identifier")
+      .matches("identifier.identifier");
   }
 
 }

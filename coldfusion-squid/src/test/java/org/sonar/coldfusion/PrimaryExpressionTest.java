@@ -32,13 +32,13 @@ public class PrimaryExpressionTest {
   @Test
   public void realLife() {
     assertThat(g.rule(CFGrammar.PRIMARY_EXPRESSION))
-        .matches("this")
-        .matches("identifier")
-        .matches("''")
-        .matches("true")
-        .matches("[]")
-        .matches("{}")
-        .matches("( expression )");
+      .matches("this")
+      .matches("identifier")
+      .matches("''")
+      .matches("true")
+      .matches("[]")
+      .matches("{}")
+      .matches("( expression )");
   }
 
 }

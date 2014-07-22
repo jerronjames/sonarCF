@@ -46,17 +46,17 @@ public class ColdFusionProfileTest {
     // assertThat(profile.getLanguage()).isEqualTo(ColdFusion.KEY);
     // assertThat(profile.getName()).isEqualTo(RulesProfile.SONAR_WAY_NAME);
     // assertThat(profile.getActiveRulesByRepository(CheckList.REPOSITORY_KEY))
-    //     .hasSize(61);
+    // .hasSize(61);
     // assertThat(validation.hasErrors()).isFalse();
   }
 
   // static RuleFinder ruleFinder() {
-  //   return when(mock(RuleFinder.class).findByKey(anyString(), anyString())).thenAnswer(new Answer<Rule>() {
-  //     public Rule answer(InvocationOnMock invocation) {
-  //       Object[] arguments = invocation.getArguments();
-  //       return Rule.create((String) arguments[0], (String) arguments[1], (String) arguments[1]);
-  //     }
-  //   }).getMock();
+  // return when(mock(RuleFinder.class).findByKey(anyString(), anyString())).thenAnswer(new Answer<Rule>() {
+  // public Rule answer(InvocationOnMock invocation) {
+  // Object[] arguments = invocation.getArguments();
+  // return Rule.create((String) arguments[0], (String) arguments[1], (String) arguments[1]);
+  // }
+  // }).getMock();
   // }
 
 }

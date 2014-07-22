@@ -28,18 +28,19 @@ import static org.sonar.sslr.tests.Assertions.assertThat;
 public class EqualityOperator3Test {
 
   LexerlessGrammar g = CFGrammar.createGrammar();
-  
-  /* ANTLR grammar
-    equalityOperator2
-	    :   LESS THAN -> ^(LT)
-	    |   GREATER THAN -> ^(GT)
-	    |   NOT EQUAL  -> ^(NEQ)
-	    |   IS NOT -> ^(NEQ)
-	    ;
+
+  /*
+   * ANTLR grammar
+   * equalityOperator2
+   * : LESS THAN -> ^(LT)
+   * | GREATER THAN -> ^(GT)
+   * | NOT EQUAL -> ^(NEQ)
+   * | IS NOT -> ^(NEQ)
+   * ;
    */
   @Test
   public void realLife() {
     assertThat(g.rule(CFGrammar.EQUALITY_OPERATOR_3))
-    	.matches("does not contain");
+      .matches("does not contain");
   }
 }

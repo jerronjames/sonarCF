@@ -29,18 +29,18 @@ public class ElementTest {
 
   LexerlessGrammar g = CFGrammar.createGrammar();
 
-/*
-element
-  : functionDeclaration
-  | statement
-  ;
-*/
+  /*
+   * element
+   * : functionDeclaration
+   * | statement
+   * ;
+   */
 
   @Test
   public void ok() {
     assertThat(g.rule(CFGrammar.ELEMENT))
-        .matches("private void function foo(string b){}")
-        .matches("for(int i = 0; i < 10; i++){}");
+      .matches("private void function foo(string b){}")
+      .matches("for(int i = 0; i < 10; i++){}");
   }
- 
+
 }

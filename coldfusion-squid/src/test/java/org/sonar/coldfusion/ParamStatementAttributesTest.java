@@ -32,13 +32,13 @@ public class ParamStatementAttributesTest {
   @Test
   public void ok() {
     assertThat(g.rule(CFGrammar.PARAM_STATEMENT_ATTRIBUTES))
-    	// add more cases if necessary, just not sure if the multiple params is correct
-    	.as("param").matches("identifier = impliesExpression")
-    	.as("param").matches("identifier=impliesExpression")
-    	.as("multiple params").matches("identifier = impliesExpression identifier = impliesExpression");
-	    
+      // add more cases if necessary, just not sure if the multiple params is correct
+      .as("param").matches("identifier = impliesExpression")
+      .as("param").matches("identifier=impliesExpression")
+      .as("multiple params").matches("identifier = impliesExpression identifier = impliesExpression");
+
     assertThat(g.rule(CFGrammar.PARAM_STATEMENT_ATTRIBUTES))
-    	.notMatches(" ");
+      .notMatches(" ");
   }
 
 }
