@@ -25,11 +25,11 @@ import static org.fest.assertions.Assertions.assertThat;
 
 public class ColdFusionConfigurationModelTest {
 
-  private ColdFusionConfigurationModel model = new ColdFusionConfigurationModel();
+  private final ColdFusionConfigurationModel model = new ColdFusionConfigurationModel();
 
   @Test
   public void test() {
-    assertThat(model.getTokenizers().size()).isEqualTo(5);
+    assertThat(model.getTokenizers()).isEmpty();
     assertThat(model.getProperties()).hasSize(1);
   }
 
