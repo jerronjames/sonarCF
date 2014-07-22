@@ -25,19 +25,22 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 
 import static org.sonar.sslr.tests.Assertions.assertThat;
 
-public class ImplicitStructExpression {
+public class ImplicitStructKeyExpressionTest {
   LexerlessGrammar g = CFGrammar.createGrammar();
 
   @Test
   public void ok() {
-    assertThat(g.rule(CFGrammar.IMPLICIT_STRUCT_EXPRESSION))
-      .matches("implicitStructKeyExpression : impliesExpression")
-      .matches("implicitStructKeyExpression = impliesExpression")
-      .matches("implicitStructKeyExpression:impliesExpression")
-      .matches("implicitStructKeyExpression=impliesExpression");
+    assertThat(g.rule(CFGrammar.IMPLICIT_STRUCT_KEY_EXPRESSION))
+      .matches("identifier")
+      .matches("identifier.identifier")
+      .matches("identifier.reservedWord")
+      .matches("identifier.reservedWord.reservedWord")
+      .matches("\"STRING_LITERAL\"");
 
-    assertThat(g.rule(CFGrammar.IMPLICIT_STRUCT_EXPRESSION))
-      .notMatches("implicitStructKeyExpression ; impliesExpression")
-      .notMatches("implicitStructKeyExpression , impliesExpression");
+    assertThat(g.rule(CFGrammar.IMPLICIT_STRUCT_KEY_EXPRESSION))
+      .notMatches("1")
+      .notMatches("1")
+      .notMatches("identifier:identifier");
+
   }
 }

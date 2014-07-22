@@ -19,31 +19,25 @@
  */
 package org.sonar.coldfusion;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.sonar.coldfusion.parser.CFGrammar;
 import org.sonar.sslr.parser.LexerlessGrammar;
 
 import static org.sonar.sslr.tests.Assertions.assertThat;
 
-// FIXME
-@Ignore("Broken test")
-public class ImplicitStructKeyExpression {
+public class ImplicitStructElementsTest {
   LexerlessGrammar g = CFGrammar.createGrammar();
 
   @Test
   public void ok() {
-    assertThat(g.rule(CFGrammar.IMPLICIT_STRUCT_KEY_EXPRESSION))
-      .matches("identifier")
-      .matches("identifier.identifier")
-      .matches("identifier.reservedWord")
-      .matches("identifier.reservedWord.reservedWord")
-      .matches("\"STRING_LITERAL\"");
-
-    assertThat(g.rule(CFGrammar.IMPLICIT_STRUCT_KEY_EXPRESSION))
-      .notMatches("1")
-      .notMatches("1")
-      .notMatches("identifier:identifier");
-
+    assertThat(g.rule(CFGrammar.IMPLICIT_STRUCT_ELEMENTS))
+      .matches("structKey1.innerStructKey1 = \"innerStructValue1\"")
+      .matches("innerStructKey1 = \"innerStructValue1\"")
+      .matches("structKey1 = innerStruct1");
+    assertThat(g.rule(CFGrammar.IMPLICIT_STRUCT_ELEMENTS))
+      .matches("name = \"Tricia\", hair = \"Brown\"")
+      .notMatches("implicitStructExpression, ")
+      .notMatches("implicitStructExpression , , implicitStructExpression");
   }
+
 }
