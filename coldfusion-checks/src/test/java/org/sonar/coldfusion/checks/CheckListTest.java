@@ -19,22 +19,15 @@
  */
 package org.sonar.coldfusion.checks;
 
-import java.util.Collections;
-import java.util.List;
+import org.junit.Test;
 
-public final class CheckList {
+import static org.fest.assertions.Assertions.assertThat;
 
-  public static final String REPOSITORY_KEY = "coldfusion";
+public class CheckListTest {
 
-  public static final String REPOSITORY_NAME = "SonarQube";
-
-  public static final String SONAR_WAY_PROFILE = "Sonar way";
-
-  private CheckList() {
-  }
-
-  public static List<Class> getChecks() {
-    return Collections.emptyList();
+  @Test
+  public void test() {
+    assertThat(CheckList.getChecks()).isEmpty();
   }
 
 }
