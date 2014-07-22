@@ -1,3 +1,4 @@
+
 /*
  * SonarQube ColdFusion Plugin
  * Copyright (C) 2014 SonarSource and MC
@@ -17,7 +18,7 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
-package org.sonar.coldfusion;
+package org.sonar.coldfusion.parser.grammar.statements;
 
 import org.junit.Test;
 import org.sonar.coldfusion.parser.CFGrammar;
@@ -25,18 +26,14 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 
 import static org.sonar.sslr.tests.Assertions.assertThat;
 
-public class NotExpressionTest {
+public class Test {
 
   LexerlessGrammar g = CFGrammar.createGrammar();
 
   @Test
   public void ok() {
-    assertThat(g.rule(CFGrammar.NOT_EXPRESSION))
-      .matches("!(x EQ y)")
-      .matches("NOT(x GTE y)")
-      .matches("!var1")
-      .matches("NOT(condition)")
-      ,matches("c1 NOTc2");
-  }
+    assertThat(g.rule(CFGrammar.))
+        .matches("");
 
+  }
 }

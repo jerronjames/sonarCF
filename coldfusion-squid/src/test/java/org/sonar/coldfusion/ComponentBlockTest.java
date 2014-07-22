@@ -25,18 +25,19 @@ import org.sonar.sslr.parser.LexerlessGrammar;
 
 import static org.sonar.sslr.tests.Assertions.assertThat;
 
-public class NotExpressionTest {
+public class ComponentBlockTest {
 
   LexerlessGrammar g = CFGrammar.createGrammar();
-
+// b.rule(COMPONENT_BLOCK).is(LCURLYBRACE, b.zeroOrMore(ELEMENT), RCURLYBRACE);
+//b.rule(ELEMENT).is(b.firstOf(FUNCTION_DECLARATION, STATEMENT));
+//statement: trycatch, if, return, etc
   @Test
   public void ok() {
-    assertThat(g.rule(CFGrammar.NOT_EXPRESSION))
-      .matches("!(x EQ y)")
-      .matches("NOT(x GTE y)")
-      .matches("!var1")
-      .matches("NOT(condition)")
-      ,matches("c1 NOTc2");
+    assertThat(g.rule(CFGrammar.COMPONENT_BLOCK))
+        .matches("{}")
+        .matches("{public string function foo(){}}")
+        .matches("{public void function bar(string x){doSomethingInteresting();}}")
+        ; 
   }
-
+ 
 }
