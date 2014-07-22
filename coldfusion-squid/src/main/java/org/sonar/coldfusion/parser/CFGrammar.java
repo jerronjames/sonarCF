@@ -675,7 +675,7 @@ public enum CFGrammar implements GrammarRuleKey {
     b.rule(IMPLICIT_STRUCT_KEY_EXPRESSION).is(b.firstOf(
       b.sequence(VARIABLE,
         b.zeroOrMore(DOT, b.firstOf(RESERVED_WORD, VARIABLE))),
-      LITERAL));
+      STRING_LITERAL));
     b.rule(NEW_COMPONENT_EXPRESSION).is(NEW, COMPONENT_PATH, LPARENTHESIS, ARGUMENT_LIST, RPARENTHESIS);
     b.rule(COMPONENT_PATH).is(b.firstOf(STRING_LITERAL, b.sequence(VARIABLE, b.zeroOrMore(DOT, VARIABLE))));
   }
